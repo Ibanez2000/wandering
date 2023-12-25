@@ -2,7 +2,6 @@
 .navbar {
   background-color: #608180;
   overflow: auto;
-
 }
 
 /* Navbar links */
@@ -12,23 +11,22 @@
   padding: 12px;
   color: white;
   text-decoration: none;
-
 }
 
 /* Navbar links on mouse-over */
 .navbar a:hover {
-  background-color: #43655A;
+  background-color: #43655a;
 }
 
 /* Current/active navbar link */
 .active {
-  background-color: #43655A;
+  background-color: #43655a;
 }
 
 /* Create a right-aligned (split) link inside the navigation bar */
 .navbar a.split {
   float: right;
-  background-color: #43655A;
+  background-color: #43655a;
   color: white;
 }
 
@@ -41,31 +39,28 @@
 }
 
 body {
-font-size: large;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background-color: #D4D7DC;
-
+  font-size: large;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #d4d7dc;
 }
 
 /* Navigation bar end */
 
-
 /* HREF start*/
-a:link { 
-  text-decoration: none; 
-} 
-a:visited { 
-  text-decoration: none; 
-} 
-a:hover { 
-  text-decoration: none; 
-} 
-a:active { 
-  text-decoration: none; 
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
 }
 
 /* HREF end */
-
 
 /* General content start*/
 .box {
@@ -83,10 +78,7 @@ a:active {
   margin: auto;
   width: 70%;
   border-radius: 25px;
-
 }
-
-
 
 div.gallerybig {
   text-align: center;
@@ -108,7 +100,6 @@ div.desc {
   padding: 15px;
   text-align: center;
 }
-
 
 div.gallery {
   text-align: center;
@@ -132,5 +123,8 @@ div.desc {
   text-align: center;
 }
 
+div.videobox {
+  text-align: center;
+}
 
 /* General content end */
