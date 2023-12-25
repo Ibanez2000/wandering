@@ -52,7 +52,6 @@ a:link {
 }
 a:visited {
   text-decoration: none;
-
 }
 a:hover {
   text-decoration: none;
@@ -78,8 +77,9 @@ a:active {
 
 .box img {
   width: 100%;
-  max-width: 100%; 
-  height: auto; 
+  max-width: 100%;
+  height: auto;
+}
 
 .textbox {
   padding: 10px;
@@ -135,6 +135,5 @@ div.desc {
 div.videobox {
   text-align: center;
 }
-
 
 /* General content end */
