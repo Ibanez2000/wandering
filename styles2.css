@@ -52,6 +52,7 @@ a:link {
 }
 a:visited {
   text-decoration: none;
+
 }
 a:hover {
   text-decoration: none;
@@ -66,9 +67,12 @@ a:active {
 .box {
   width: 70%;
   border: 0px solid black;
-  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
 
-  padding: 10px;
+  padding: 20px;
   background-color: #f7f7f7;
 }
 
@@ -77,7 +81,7 @@ a:active {
   border: 3px solid #608180;
   margin: auto;
   width: 70%;
-  border-radius: 25px;
+  border-radius: 15px;
 }
 
 div.gallerybig {
