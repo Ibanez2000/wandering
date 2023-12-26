@@ -47,6 +47,105 @@
 
     <!-- Start content block -->
     <div class="box">
+
+
+      <h1>JLPT N5 Hiragana Drill</h1>
+      <p id="japanese">japanese</p>
+      <p id="hiragana">hiragana</p>
+      <p id="romaji" style="display: none">romaji</p>
+
+      <p>Write answer in Hiragana or Romaji</p>
+      <input type="text" id="answer" value="" onfocus="" />
+      <p>Result</p>
+      <p id="result"></p>
+
+
+      <button type="button" onclick="counterDecrease()">Previous</button>
+
+      <button type="button" onclick="counterIncrease()">Next</button>
+      <button type="button" onclick="checkAnswer()">Check</button>
+      <button type="button" id="toggleRomaji" onclick="toggleRomaji()">
+        Show Romaji
+      </button>
+
+      <script>
+        let text =
+          '{ "vocabHiragana" : [' +
+          '{ "japanese":"緑" , "hiragana":"みどり", "romaji":"midori" },' +
+          '{ "japanese":"不味い" , "hiragana":"まずい", "romaji":"mazui"  },' +
+          '{ "japanese":"余り" , "hiragana":"あまり", "romaji":"amari"  } ]}';
+
+        const obj = JSON.parse(text);
+
+        var counter = 0;
+
+        function counterDecrease() {
+          if (counter >= 1) {
+            counter--;
+            updateTexts();
+          }
+        }
+
+        function counterIncrease() {
+          if (counter <= Object.keys(obj).length) {
+            counter++;
+            updateTexts();
+          }
+        }
+
+        function toggleRomaji() {
+          var myRomaji = document.getElementById("romaji");
+          var displaySetting = myRomaji.style.display;
+
+          var toggleRomajiButton = document.getElementById("toggleRomaji");
+
+          if (displaySetting == "block") {
+            // clock is visible. hide it
+            myRomaji.style.display = "none";
+            // change button text
+            toggleRomajiButton.innerHTML = "Show Romaji";
+          } else {
+            // clock is hidden. show it
+            myRomaji.style.display = "block";
+            // change button text
+            toggleRomajiButton.innerHTML = "Hide Romaji";
+          }
+        }
+
+        function updateTexts() {
+          document.getElementById("japanese").innerHTML =
+            obj.vocabHiragana[counter].japanese;
+          document.getElementById("hiragana").innerHTML =
+            obj.vocabHiragana[counter].hiragana;
+          document.getElementById("romaji").innerHTML =
+            obj.vocabHiragana[counter].romaji;
+          document.getElementById("result").innerHTML = "";
+          document.getElementById("answer").value = "";
+        }
+
+        function checkAnswer() {
+          let answer = document.getElementById("answer").value;
+          let hiragana = obj.vocabHiragana[counter].hiragana;
+          let romaji = obj.vocabHiragana[counter].romaji;
+
+          if (answer == romaji || answer == hiragana) {
+            document.getElementById("result").innerHTML = "correct";
+          } else {
+            document.getElementById("result").innerHTML = "wrong";
+          }
+        }
+
+        updateTexts();
+      </script>
+
+
+
+
+
+
+
+
+
       <h1>Hiragana 五十音</h1>
 
       <h2>Monographs (五十音)</h2>
