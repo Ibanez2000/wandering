@@ -21,6 +21,7 @@
 
   <body>
 
+    <script type="module" src="./index.js"></script>
 
     <!-- Load an icon library -->
     <link
@@ -75,6 +76,12 @@
           '{ "japanese":"緑" , "hiragana":"みどり", "romaji":"midori" },' +
           '{ "japanese":"不味い" , "hiragana":"まずい", "romaji":"mazui"  },' +
           '{ "japanese":"余り" , "hiragana":"あまり", "romaji":"amari"  } ]}';
+
+
+          import data from './files/japanese/jlpt5/jlpt5.json' assert { type: 'json' };
+          console.log(data);
+
+
 
 
 
