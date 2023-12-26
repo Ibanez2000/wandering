@@ -4,11 +4,14 @@
 
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="styles2.css" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://kit.fontawesome.com/fd836da500.js"
       crossorigin="anonymous"
@@ -25,26 +28,22 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
-    <div class="navbar">
+    <div class="topnav" id="myTopnav">
       <a class="active" href="index.html"
         ><i class="fa-regular fa-newspaper"></i> Wandering BI</a
       >
-      <a href="./pages/blog.html"
+      <a href="/pages/blog.html"
         ><i class="fa-regular fa-newspaper"></i> Blog</a
       >
-      <a href="./pages/photo.html"><i class="fa-solid fa-camera"></i> Photo</a>
-      <a href="./pages/about.html"
+      <a href="/pages/photo.html"><i class="fa-solid fa-camera"></i> Photo</a>
+      <a href="/pages/about.html"
         ><i class="fa-solid fa-address-card"></i> About</a
       >
-      <a href="./pages/impressum.html"
+      <a href="/pages/impressum.html"
         ><i class="fa-solid fa-compass"></i> Impressum</a
       >
-      <a href="./pages/datenschutzerklaerung.html"
-        ><i class="fa-solid fa-compass"></i> Datenschutzerklärung</a
-      >
-
-      <a href="https://www.youtube.com/@WanderingBI" class="split"
-        ><i class="fa-solid fa-video"></i> Wandering BI</a
+      <a href="/pages/datenschutz.html"
+        ><i class="fa-solid fa-hamsa"></i> Datenschutz</a
       >
     </div>
 
@@ -61,5 +60,16 @@
       </p>
     </div>
     <!-- End content block -->
+
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+    </script>
   </body>
 </html>
