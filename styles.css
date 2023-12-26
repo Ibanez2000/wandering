@@ -10,6 +10,28 @@ ul li {
   margin-bottom: 10px;
 }
 
+.hiraganatable {
+  font-size: larger;
+  background-color: #d4d7dc;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.hiraganatable th,
+td {
+  margin: auto;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+.hiraganatable .light {
+  color: #777;
+}
+
+table p {
+  margin: 0px;
+}
+
 .box {
   width: 75%;
   border: 0px solid black;
@@ -35,16 +57,16 @@ ul li {
   width: 70%;
 }
 
-
 div.gallerybig {
   text-align: center;
   margin: 5px;
   border: 1px solid #ccc;
   float: left;
+  background-color: #d4d7dc;
 }
 
 div.gallerybig:hover {
-  border: 3px solid #777;
+  border: 1px solid #777;
 }
 
 div.gallerybig img {
@@ -56,7 +78,6 @@ div.desc {
   padding: 15px;
   text-align: center;
 }
-
 
 .gallerywrapper {
   overflow: auto;
