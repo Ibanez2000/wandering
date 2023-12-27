@@ -1,4 +1,4 @@
-let text = [
+let jlpt5Array = [
   {
     number: 1,
     hiragana: "ああ",

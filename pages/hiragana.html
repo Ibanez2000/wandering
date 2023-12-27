@@ -47,11 +47,11 @@
 
     <!-- Start content block -->
     <div class="box">
-      <h1>Kana Practice JLPT N5</h1>
+      <h1>Kana Practice</h1>
 
       <div class="flex-container">
         <div style="border-bottom: 2px solid gray">
-          <p style="font-size:xx-large" id="hiraganaTxt">hiragana</p>
+          <p style="font-size: xx-large" id="hiraganaTxt">hiragana</p>
         </div>
         <div style="border-bottom: 2px solid gray" id="kanjiTxtDiv">
           <p id="kanjiTxt">kanji</p>
@@ -64,7 +64,7 @@
         </div>
         <div>
           <input
-            style="line-height: 2em;font-size: larger;"
+            style="line-height: 2em; font-size: larger"
             type="text"
             placeholder="Type Answer"
             id="userAnswerInp"
@@ -111,7 +111,19 @@
             </button>
           </div>
         </div>
+        <div>
+          <select name="vocabulary" id="vocabulary" onclick="selectChange()">
+            <option value="simpleNouns">Simple Nouns</option>
+            <option value="jlpt5">JLPT5</option>
+          </select>
+        </div>
       </div>
+
+      <!-- Load Vocabulary Lists (JS array of objects) -->
+      <script
+        type="text/javascript"
+        src="../files/japanese/simpleNouns/simpleNouns.js"
+      ></script>
 
       <script
         type="text/javascript"
@@ -119,19 +131,35 @@
       ></script>
 
       <script>
-        const obj = text; // the source is a JS array of objects
+        var obj = simpleNounsArray;
         var index, correctCounter;
         let number, hiragana, kanji, type, meaning, romaji;
 
+        document.getElementById("kanjiTxtDiv").style.display = "none";
+        document.getElementById("meaningTxtDiv").style.display = "none";
+        document.getElementById("romajiTxtDiv").style.display = "none";
+
         initialize();
+
+        function selectChange() {
+          var selectedValue = document.getElementById("vocabulary").value;
+          console.log(selectedValue);
+
+          if (selectedValue == "simpleNouns") {
+            obj = simpleNounsArray;
+            console.log("simpleNouns has been selected as vocabulary");
+          }
+          if (selectedValue == "jlpt5") {
+            console.log("jlpt5 has been selected as vocabulary");
+            obj = jlpt5Array;
+          }
+
+          initialize();
+        }
 
         function initialize() {
           index = 0;
-          document.getElementById("kanjiTxtDiv").style.display = "none";
-          document.getElementById("meaningTxtDiv").style.display = "none";
-          document.getElementById("romajiTxtDiv").style.display = "none";
           focusUserAnswerInp();
-
           readDataByIndex();
           updateElements();
         }
