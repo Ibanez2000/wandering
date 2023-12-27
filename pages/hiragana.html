@@ -97,7 +97,7 @@
           </div>
           <div>
             <button id="toggleKanjiBtn" type="button" onclick="toggleKanji()">
-              Hide Kanji
+              Show Kanji
             </button>
           </div>
           <div>
@@ -106,7 +106,7 @@
               type="button"
               onclick="toggleMeaning()"
             >
-              Hide meaning
+              Show meaning
             </button>
           </div>
         </div>
@@ -126,6 +126,8 @@
 
         function initialize() {
           index = 0;
+          document.getElementById("kanjiTxtDiv").style.display = "none"
+          document.getElementById("meaningTxtDiv").style.display = "none"
           readDataByIndex();
           updateElements();
         }
@@ -181,7 +183,7 @@
         }
 
         function answerSubmit() {
-            console.log("answer was submitted")
+          console.log("answer was submitted");
           let userAnswer = document.getElementById("userAnswerInp").value;
 
           console.log("userAnswer:" + userAnswer);
@@ -200,7 +202,7 @@
             document.getElementById("kanjiTxtDiv").style.display = "none";
             document.getElementById("toggleKanjiBtn").innerHTML = "Show Kanji";
           } else {
-            document.getElementById("kanjiTxtDiv").style.display = "none";
+            document.getElementById("kanjiTxtDiv").style.display = "block";
             document.getElementById("toggleKanjiBtn").innerHTML = "Hide Kanji";
           }
         }
@@ -214,7 +216,7 @@
             document.getElementById("toggleMeaningBtn").innerHTML =
               "Show meaning";
           } else {
-            document.getElementById("meaningTxtDiv").style.display = "none";
+            document.getElementById("meaningTxtDiv").style.display = "block";
             document.getElementById("toggleMeaningBtn").innerHTML =
               "Hide meaning";
           }
