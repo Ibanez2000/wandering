@@ -59,7 +59,7 @@
         <div style="border-bottom: 2px solid gray" id="meaningTxtDiv">
           <p id="meaningTxt">meaning</p>
         </div>
-        <div style="border-bottom: 2px solid gray">
+        <div style="border-bottom: 2px solid gray" id="romajiTxtDiv">
           <p id="romajiTxt">romaji</p>
         </div>
         <div>
@@ -91,8 +91,8 @@
 
         <div class="flex-container-row">
           <div>
-            <button id="vocabularyBtn" type="button" onclick="vocabulary()">
-              Vocabulary
+            <button id="toggleRomajiBtn" type="button" onclick="toggleRomaji()">
+              Show Romaji
             </button>
           </div>
           <div>
@@ -126,8 +126,11 @@
 
         function initialize() {
           index = 0;
-          document.getElementById("kanjiTxtDiv").style.display = "none"
-          document.getElementById("meaningTxtDiv").style.display = "none"
+          document.getElementById("kanjiTxtDiv").style.display = "none";
+          document.getElementById("meaningTxtDiv").style.display = "none";
+          document.getElementById("romajiTxtDiv").style.display = "none";
+          focusUserAnswerInp();
+
           readDataByIndex();
           updateElements();
         }
@@ -182,6 +185,10 @@
           }
         }
 
+        function reveal() {
+          document.getElementById("userAnswerInp").value = romaji;
+        }
+
         function answerSubmit() {
           console.log("answer was submitted");
           let userAnswer = document.getElementById("userAnswerInp").value;
@@ -197,6 +204,26 @@
           }
         }
 
+        function focusUserAnswerInp() {
+          document.getElementById("userAnswerInp").focus();
+          document.getElementById("userAnswerInp").select();
+        }
+
+        function toggleRomaji() {
+          if (
+            document.getElementById("romajiTxtDiv").style.display == "block"
+          ) {
+            document.getElementById("romajiTxtDiv").style.display = "none";
+            document.getElementById("toggleRomajiBtn").innerHTML =
+              "Show Romaji";
+          } else {
+            document.getElementById("romajiTxtDiv").style.display = "block";
+            document.getElementById("toggleRomajiBtn").innerHTML =
+              "Hide Romaji";
+          }
+          focusUserAnswerInp();
+        }
+
         function toggleKanji() {
           if (document.getElementById("kanjiTxtDiv").style.display == "block") {
             document.getElementById("kanjiTxtDiv").style.display = "none";
@@ -205,6 +232,7 @@
             document.getElementById("kanjiTxtDiv").style.display = "block";
             document.getElementById("toggleKanjiBtn").innerHTML = "Hide Kanji";
           }
+          focusUserAnswerInp();
         }
 
         function toggleMeaning() {
@@ -220,6 +248,7 @@
             document.getElementById("toggleMeaningBtn").innerHTML =
               "Hide meaning";
           }
+          focusUserAnswerInp();
         }
       </script>
 
