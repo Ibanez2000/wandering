@@ -274,3 +274,12 @@ a:active {
   width:120px;
   
 }
+
+@media only screen and (max-width: 600px) {
+  .flex-container-row button  {
+    width: 90px;
+    height: 40px;
+    font-size:small;
+  }
+
+}
