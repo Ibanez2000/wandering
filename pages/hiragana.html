@@ -192,7 +192,10 @@
 
         function answerSubmit() {
           console.log("answer was submitted");
-          let userAnswer = document.getElementById("userAnswerInp").value;
+          let adjusted = document.getElementById("userAnswerInp").value.toLowerCase();
+          console.log(adjusted);
+
+          let userAnswer = adjusted;
 
           console.log("userAnswer:" + userAnswer);
           console.log("correct romaji:" + romaji);
