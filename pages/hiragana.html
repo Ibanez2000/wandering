@@ -64,7 +64,7 @@
         </div>
         <div>
           <input
-          style="line-height: 2em;"
+            style="line-height: 2em"
             type="text"
             placeholder="Type Answer"
             id="userAnswerInp"
@@ -192,7 +192,9 @@
 
         function answerSubmit() {
           console.log("answer was submitted");
-          let adjusted = document.getElementById("userAnswerInp").value.toLowerCase();
+          let adjusted = document
+            .getElementById("userAnswerInp")
+            .value.toLowerCase();
           console.log(adjusted);
 
           let userAnswer = adjusted;
@@ -780,6 +782,21 @@
           <td>green</td>
         </tr>
       </table>
+
+      <p>
+        The vocabulary list used on this website is derived from Wikibooks
+        (Author: Wikibooks contributors), titled "JLPT Guide" and is licensed
+        under CC BY-SA 4.0.
+      </p>
+      <p>
+        Original source link:
+        <a
+          href="https://en.wikibooks.org/w/index.php?title=JLPT_Guide&oldid=3460359"
+          target="_blank"
+          >https://en.wikibooks.org/w/index.php?title=JLPT_Guide&oldid=3460359</a
+        >. The list has been slightly modified and Romaji transcription was
+        added.
+      </p>
     </div>
 
     <!-- End content block -->
