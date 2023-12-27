@@ -20,8 +20,6 @@
   </head>
 
   <body>
-
-
     <!-- Load an icon library -->
     <link
       rel="stylesheet"
@@ -49,104 +47,174 @@
 
     <!-- Start content block -->
     <div class="box">
+      <h1>Hiragana Drill</h1>
 
+      <div class="flex-container">
+        <div style="border-bottom: 2px solid gray">
+          <p style="font-size: x-large" id="hiraganaTxt">hiragana</p>
+        </div>
+        <div style="border-bottom: 2px solid gray" id="kanjiTxtDiv">
+          <p id="kanjiTxt">kanji</p>
+        </div>
+        <div style="border-bottom: 2px solid gray" id="meaningTxtDiv">
+          <p id="meaningTxt">meaning</p>
+        </div>
+        <div style="border-bottom: 2px solid gray">
+          <p id="romajiTxt">romaji</p>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Type Answer"
+            id="userAnswerInp"
+            onkeydown="isKeyPressed(event)"
+          />
+        </div>
 
-      <h1>JLPT N5 Hiragana Drill</h1>
-      <p id="japanese">japanese</p>
-      <p id="hiragana">hiragana</p>
-      <p id="romaji" style="display: none">romaji</p>
+        <div class="flex-container-row">
+          <div>
+            <button id="previousBtn" type="button" onclick="indexDecrease()">
+              Previous
+            </button>
+          </div>
+          <div>
+            <button id="nextBtn" type="button" onclick="indexIncrease()">
+              Next
+            </button>
+          </div>
+          <div>
+            <button id="revealBtn" type="button" onclick="reveal()">
+              Reveal
+            </button>
+          </div>
+        </div>
 
-      <p>Write answer in Hiragana or Romaji</p>
-      <input type="text" id="answer" value="" onfocus="" />
-      <p>Result</p>
-      <p id="result"></p>
+        <div class="flex-container-row">
+          <div>
+            <button id="vocabularyBtn" type="button" onclick="vocabulary()">
+              Vocabulary
+            </button>
+          </div>
+          <div>
+            <button id="toggleKanjiBtn" type="button" onclick="toggleKanji()">
+              Hide Kanji
+            </button>
+          </div>
+          <div>
+            <button
+              id="toggleMeaningBtn"
+              type="button"
+              onclick="toggleMeaning()"
+            >
+              Hide meaning
+            </button>
+          </div>
+        </div>
+      </div>
 
-
-      <button type="button" onclick="counterDecrease()">Previous</button>
-      <button type="button" onclick="counterIncrease()">Next</button>
-      <button type="button" onclick="checkAnswer()">Check</button>
-      <button type="button" id="toggleRomaji" onclick="toggleRomaji()">
-        Show Romaji
-      </button>
-
-      <script type="text/javascript" src="../files/japanese/jlpt5/jlpt5.js"></script>
-
+      <script
+        type="text/javascript"
+        src="../files/japanese/jlpt5/jlpt5.js"
+      ></script>
 
       <script>
+        const obj = text; // the source is a JS array of objects
+        var index, correctCounter;
+        let number, hiragana, kanji, type, meaning, romaji;
 
+        initialize();
 
-
-
-        const obj = JSON.parse(text);
-
-        var counter = 0;
-
-        function counterDecrease() {
-          if (counter >= 1) {
-            counter--;
-            updateTexts();
-          }
+        function initialize() {
+          index = 0;
+          readDataByIndex();
+          updateElements();
         }
 
-        function counterIncrease() {
-          if (counter <= Object.keys(obj).length) {
-            counter++;
-            updateTexts();
-          }
+        function readDataByIndex() {
+          number = obj[index].number;
+          hiragana = obj[index].hiragana;
+          kanji = obj[index].kanji;
+          type = obj[index].type;
+          meaning = obj[index].meaning;
+          romaji = obj[index].romaji;
         }
 
-        function toggleRomaji() {
-          var myRomaji = document.getElementById("romaji");
-          var displaySetting = myRomaji.style.display;
+        function indexDecrease() {
+          //   console.log("old index:" + index);
+          if (index > 0) {
+            index--;
+            readDataByIndex();
+            updateElements();
+          }
+          //   console.log("new index:" + index);
+        }
 
-          var toggleRomajiButton = document.getElementById("toggleRomaji");
+        function indexIncrease() {
+          //   console.log("old index:" + index);
+          if (index <= obj.length) {
+            index++;
+            readDataByIndex();
+            updateElements();
+          }
+          //   console.log("new index:" + index);
+        }
 
-          if (displaySetting == "block") {
-            // clock is visible. hide it
-            myRomaji.style.display = "none";
-            // change button text
-            toggleRomajiButton.innerHTML = "Show Romaji";
+        function updateElements() {
+          document.getElementById("hiraganaTxt").innerHTML = hiragana;
+          //   console.log(hiragana);
+          document.getElementById("kanjiTxt").innerHTML = kanji;
+          //   console.log(kanji);
+          document.getElementById("meaningTxt").innerHTML = meaning;
+          //   console.log(meaning);
+          document.getElementById("romajiTxt").innerHTML = romaji;
+          //   console.log(romaji);
+        }
+
+        function isKeyPressed(event) {
+          if (event.key === "Enter") {
+            console.log("enter key pressed");
+            answerSubmit();
           } else {
-            // clock is hidden. show it
-            myRomaji.style.display = "block";
-            // change button text
-            toggleRomajiButton.innerHTML = "Hide Romaji";
+            console.log("enter key NOT pressed");
           }
         }
 
-        function updateTexts() {
-          document.getElementById("japanese").innerHTML =
-            obj.vocabHiragana[counter].japanese;
-          document.getElementById("hiragana").innerHTML =
-            obj.vocabHiragana[counter].hiragana;
-          document.getElementById("romaji").innerHTML =
-            obj.vocabHiragana[counter].romaji;
-          document.getElementById("result").innerHTML = "";
-          document.getElementById("answer").value = "";
-        }
-
-        function checkAnswer() {
-          let answer = document.getElementById("answer").value;
-          let hiragana = obj.vocabHiragana[counter].hiragana;
-          let romaji = obj.vocabHiragana[counter].romaji;
-
-          if (answer == romaji || answer == hiragana) {
-            document.getElementById("result").innerHTML = "correct";
+        function answerSubmit() {
+          let userAnswer = document.getElementById("userAnswerInp").value;
+          if (userAnswer == hiragana) {
+            console.log("correct answer");
+            // what to do if correct? -> just go to next entry
+            indexIncrease();
           } else {
-            document.getElementById("result").innerHTML = "wrong";
+            console.log("wrong answer");
           }
         }
 
-        updateTexts();
+        function toggleKanji() {
+          if (document.getElementById("kanjiTxtDiv").style.display == "block") {
+            document.getElementById("kanjiTxtDiv").style.display = "none";
+            document.getElementById("toggleKanjiBtn").innerHTML = "Show Kanji";
+          } else {
+            document.getElementById("kanjiTxtDiv").style.display = "none";
+            document.getElementById("toggleKanjiBtn").innerHTML = "Hide Kanji";
+          }
+        }
+
+        function toggleMeaning() {
+          if (
+            document.getElementById("meaningTxtDiv").style.display == "block"
+          ) {
+            document.getElementById("meaningTxtDiv").style.display = "none";
+
+            document.getElementById("toggleMeaningBtn").innerHTML =
+              "Show meaning";
+          } else {
+            document.getElementById("meaningTxtDiv").style.display = "none";
+            document.getElementById("toggleMeaningBtn").innerHTML =
+              "Hide meaning";
+          }
+        }
       </script>
-
-
-
-
-
-
-
-
 
       <h1>Hiragana 五十音</h1>
 

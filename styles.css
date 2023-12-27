@@ -10,7 +10,6 @@ body {
   body {
     font-size: smaller;
   }
-
 }
 
 ul li {
@@ -69,7 +68,6 @@ table p {
 }
 
 @media only screen and (max-width: 670px) {
-  
   .box {
     width: 90%;
   }
@@ -230,3 +228,49 @@ a:active {
   }
 }
 /* Topnav end */
+
+/* Hiragana Drill */
+.flex-container {
+  width: 100%;
+  margin: auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d4d7dc;
+  
+}
+
+.flex-container .flex-container-row {
+  display: flex;
+  flex-direction: row;
+  background-color: #d4d7dc;
+  align-items: center;
+  justify-content: center;
+
+  
+}
+
+.flex-container > div {
+  min-height: 60px;
+  max-height: 30px;
+  margin: 1px;
+  padding: 5px;
+  width: 80%;
+  text-align: center;
+  background-color: #d4d7dc;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+
+}
+
+.flex-container > p {
+  margin: 5px;
+  padding: 5px;
+}
+
+.flex-container-row button {
+  width:120px;
+  
+}
