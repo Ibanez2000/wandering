@@ -1,12 +1,20 @@
 {
-  "Employees": [
+  "jlpt5": [
     {
-      "name": "John",
-      "age": 30
+      "number": 1,
+      "hiragana": "ああ",
+      "kanji": " ",
+      "type": "(感)",
+      "meaning": "Oh!, Ah!",
+      "romaji": "aa"
     },
     {
-      "name": "Mary",
-      "age": 25
+      "number": 2,
+      "hiragana": "あう",
+      "kanji": "【会う】",
+      "type": "(動I)",
+      "meaning": "meet",
+      "romaji": "au"
     }
   ]
 }
