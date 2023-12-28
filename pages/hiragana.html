@@ -198,7 +198,10 @@
           document.getElementById("userAnswerInp").value = "";
           // update audio source
           document
-            .getElementById("audio").setAttribute("src", vocablistBasePath+vocablistSelected+"/mp3/"+index+".mp3")
+            // .getElementById("audio").setAttribute("src", vocablistBasePath+vocablistSelected+"/mp3/"+index+".mp3")
+            
+            // https://github.com/Ibanez2000/wandering/raw/main/files/japanese/jlpt5/mp3/100.mp3
+            .getElementById("audio").setAttribute("src", "https://github.com/Ibanez2000/wandering/raw/main/files/japanese/jlpt5/mp3/100.mp3")
             console.log(vocablistBasePath+vocablistSelected+"/mp3/"+index+".mp3");
 
         }
