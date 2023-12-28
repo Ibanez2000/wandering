@@ -72,7 +72,7 @@
           />
         </div>
         <div>
-          <audio controls>
+          <audio controls id="audiotest">
             <source id="audio" src="" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
@@ -199,11 +199,8 @@
           // update audio source
           //document.getElementById("audio").setAttribute("src", vocablistBasePath +vocablistSelected+"/mp3/"+index+".mp3");
           
-          document.getElementById("audio").setAttribute("src", vocablistBasePath + "jlpt5/mp3/"+index+".mp3");
+          document.getElementById("audiotest").setAttribute("src", vocablistBasePath + "jlpt5/mp3/"+index+".mp3");
           
-          
-          console.log(vocablistBasePath +vocablistSelected+"/mp3/"+index+".mp3");
-
         }
 
         function focusUserAnswerInp() {
