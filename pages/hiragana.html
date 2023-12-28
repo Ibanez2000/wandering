@@ -71,13 +71,11 @@
             onkeydown="isKeyPressed(event)"
           />
         </div>
-        <div id="audo">
+        <div>
           <audio controls>
-            <source src="/files/japanese/jlpt5/mp3/2.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
+            <source id="audio" src="" type="audio/mpeg" />
+            Your browser does not support the audio element.
           </audio>
-
-
         </div>
 
         <div class="flex-container-row">
@@ -121,8 +119,8 @@
         </div>
         <div>
           <select name="vocabulary" id="vocabulary" onclick="selectChange()">
-            <option value="simpleNouns">Simple Nouns</option>
             <option value="jlpt5">JLPT5</option>
+            <option value="simpleNouns">Simple Nouns</option>
           </select>
         </div>
       </div>
@@ -139,37 +137,44 @@
       ></script>
 
       <script>
-        var obj = simpleNounsArray;
         var index, correctCounter;
+        var mp3FilePath;
         let number, hiragana, kanji, type, meaning, romaji;
+        var vocablist = [jlpt5, simpleNouns];
+        var vocablistBasePath = "../files/japanese/";
+        var vocablistSelected;
+        var obj;
 
-        document.getElementById("kanjiTxtDiv").style.display = "none";
-        document.getElementById("meaningTxtDiv").style.display = "none";
-        document.getElementById("romajiTxtDiv").style.display = "none";
+        // First initialize
+        vocablistSelected = "jlpt5";
+        initialize(jlpt5);
+        hideExtended();
 
-        initialize();
-
-        function selectChange() {
-          var selectedValue = document.getElementById("vocabulary").value;
-          console.log(selectedValue);
-
-          if (selectedValue == "simpleNouns") {
-            obj = simpleNounsArray;
-            console.log("simpleNouns has been selected as vocabulary");
-          }
-          if (selectedValue == "jlpt5") {
-            console.log("jlpt5 has been selected as vocabulary");
-            obj = jlpt5Array;
-          }
-
-          initialize();
+        function hideExtended() {
+          document.getElementById("kanjiTxtDiv").style.display = "none";
+          document.getElementById("meaningTxtDiv").style.display = "none";
+          document.getElementById("romajiTxtDiv").style.display = "none";
         }
 
-        function initialize() {
+        function selectChange() {
+          if (document.getElementById("vocabulary").value == "jlpt5") {
+            vocablistSelected = "jlpt5";
+            initialize(jlpt5);
+          }
+          if (document.getElementById("vocabulary").value == "simpleNouns") {
+            vocablistSelected = "simpleNouns";
+            initialize(simpleNouns);
+          }
+        }
+
+        function initialize(whichList) {
           index = 0;
-          focusUserAnswerInp();
+          obj = whichList;
+          
+
           readDataByIndex();
           updateElements();
+          focusUserAnswerInp();
         }
 
         function readDataByIndex() {
@@ -179,6 +184,28 @@
           type = obj[index].type;
           meaning = obj[index].meaning;
           romaji = obj[index].romaji;
+        }
+
+        function updateElements() {
+          document.getElementById("hiraganaTxt").innerHTML = hiragana;
+          //   console.log(hiragana);
+          document.getElementById("kanjiTxt").innerHTML = kanji;
+          //   console.log(kanji);
+          document.getElementById("meaningTxt").innerHTML = meaning;
+          //   console.log(meaning);
+          document.getElementById("romajiTxt").innerHTML = romaji;
+          //   console.log(romaji);
+          document.getElementById("userAnswerInp").value = "";
+          // update audio source
+          document
+            .getElementById("audio").setAttribute("src", vocablistBasePath+vocablistSelected+"/mp3/"+index+".mp3")
+            console.log(vocablistBasePath+vocablistSelected+"/mp3/"+index+".mp3");
+
+        }
+
+        function focusUserAnswerInp() {
+          document.getElementById("userAnswerInp").focus();
+          document.getElementById("userAnswerInp").select();
         }
 
         function indexDecrease() {
@@ -199,18 +226,6 @@
             updateElements();
           }
           //   console.log("new index:" + index);
-        }
-
-        function updateElements() {
-          document.getElementById("hiraganaTxt").innerHTML = hiragana;
-          //   console.log(hiragana);
-          document.getElementById("kanjiTxt").innerHTML = kanji;
-          //   console.log(kanji);
-          document.getElementById("meaningTxt").innerHTML = meaning;
-          //   console.log(meaning);
-          document.getElementById("romajiTxt").innerHTML = romaji;
-          //   console.log(romaji);
-          document.getElementById("userAnswerInp").value = "";
         }
 
         function isKeyPressed(event) {
@@ -244,11 +259,6 @@
           } else {
             console.log("wrong answer");
           }
-        }
-
-        function focusUserAnswerInp() {
-           document.getElementById("userAnswerInp").focus();
-           document.getElementById("userAnswerInp").select();
         }
 
         function toggleRomaji() {
@@ -292,6 +302,7 @@
           }
           focusUserAnswerInp();
         }
+      
       </script>
 
       <h1>Hiragana 五十音</h1>

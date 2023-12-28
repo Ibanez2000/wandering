@@ -1,4 +1,4 @@
-let simpleNounsArray = 
+let simpleNouns = 
 
 [
     {
