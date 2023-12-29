@@ -54,15 +54,21 @@
           <p style="font-size: xx-large" id="hiraganaTxt">hiragana</p>
         </div>
 
-        <div style="border-bottom: 2px solid gray; display: none;" id="kanjiDiv">
+        <div style="border-bottom: 2px solid gray; display: none" id="kanjiDiv">
           <p id="kanjiTxt">kanji</p>
         </div>
 
-        <div style="border-bottom: 2px solid gray; display: none;" id="meaningDiv">
+        <div
+          style="border-bottom: 2px solid gray; display: none"
+          id="meaningDiv"
+        >
           <p id="meaningTxt">meaning</p>
         </div>
 
-        <div style="border-bottom: 2px solid gray; display: none;" id="romajiDiv">
+        <div
+          style="border-bottom: 2px solid gray; display: none"
+          id="romajiDiv"
+        >
           <p id="romajiTxt">romaji</p>
         </div>
 
@@ -72,7 +78,6 @@
             type="text"
             placeholder="Type Answer"
             id="userAnswerInp"
-            onkeydown="isKeyPressed(event)"
           />
         </div>
         <div>
@@ -134,7 +139,6 @@
             <option value="jlpt5">JLPT5</option>
             <option value="simpleNouns">Simple Nouns</option>
             <option value="anime">Anime</option>
-
           </select>
         </div>
       </div>
@@ -151,9 +155,9 @@
       ></script>
 
       <script
-      type="text/javascript"
-      src="../files/japanese/anime/anime.js"
-    ></script>
+        type="text/javascript"
+        src="../files/japanese/anime/anime.js"
+      ></script>
 
       <script>
         var index, correctCounter;
@@ -256,14 +260,6 @@
           }
         }
 
-        function isKeyPressed(event) {
-          if ((event.key === "Enter") | (event.keyCode === 13)) {
-            console.log("enter key pressed");
-            answerSubmit();
-          } else {
-            console.log("enter key NOT pressed");
-          }
-        }
 
         function reveal() {
           document.getElementById("userAnswerInp").value = romaji;
@@ -287,6 +283,20 @@
           } else {
             console.log("wrong answer");
           }
+        }
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            answerSubmit();
+          }
+
+          if (event.shiftKey && event.key === " ") {
+            playAudio();
+          }
+        });
+
+        function playAudio() {
+          document.getElementById("audiotest").play();
         }
       </script>
 
