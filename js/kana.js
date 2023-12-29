@@ -112,8 +112,9 @@ function answerSubmit() {
   console.log("userAnswer:" + userAnswer);
   console.log("correct romaji:" + romaji);
 
-  if ((userAnswer == romaji) | (userAnswer == hiragana)) {
+  if ((userAnswer == romaji) | (userAnswer == hiragana)| (userAnswer == kanji)) {
     // what to do if correct? -> just go to next entry
+    playAudio();
     indexIncrease();
   } else {
     console.log("wrong answer");
@@ -123,7 +124,7 @@ function answerSubmit() {
 
 // for android, only keypress works! not keydown
 document.addEventListener("keypress", function (event) {
-  if (event.keyCode == 13) {
+  if (event.key === "Enter") {
     answerSubmit();
   }
 });
