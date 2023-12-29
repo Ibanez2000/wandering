@@ -129,15 +129,15 @@ document.addEventListener("keypress", function (event) {
 });
 
 // // for physical keyboards
-document.addEventListener("keydown", function (event) {
-  // if (event.keyCode==13) {
-  //   answerSubmit();
-  // }
+// document.addEventListener("keydown", function (event) {
+//   // if (event.keyCode==13) {
+//   //   answerSubmit();
+//   // }
 
-  if (event.ctrlKey && event.key === " ") {
-    playAudio();
-  }
-});
+//   if (event.ctrlKey && event.key === " ") {
+//     playAudio();
+//   }
+// });
 
 function playAudio() {
   document.getElementById("audiotest").play();
