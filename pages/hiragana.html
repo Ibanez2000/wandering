@@ -133,6 +133,8 @@
           <select name="vocabulary" id="vocabulary" onclick="selectChange()">
             <option value="jlpt5">JLPT5</option>
             <option value="simpleNouns">Simple Nouns</option>
+            <option value="anime">Anime</option>
+
           </select>
         </div>
       </div>
@@ -148,11 +150,16 @@
         src="../files/japanese/jlpt5/jlpt5.js"
       ></script>
 
+      <script
+      type="text/javascript"
+      src="../files/japanese/anime/anime.js"
+    ></script>
+
       <script>
         var index, correctCounter;
         var mp3FilePath;
         let number, hiragana, kanji, type, meaning, romaji;
-        var vocablist = [jlpt5, simpleNouns];
+        var vocablist = [jlpt5, simpleNouns, anime];
         var vocablistBasePath =
           "https://github.com/Ibanez2000/wandering/raw/main/files/japanese/";
         var vocablistSelected;
@@ -173,6 +180,10 @@
           if (document.getElementById("vocabulary").value == "simpleNouns") {
             vocablistSelected = "simpleNouns";
             initialize(simpleNouns);
+          }
+          if (document.getElementById("vocabulary").value == "anime") {
+            vocablistSelected = "anime";
+            initialize(anime);
           }
         }
 
