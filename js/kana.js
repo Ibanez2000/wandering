@@ -119,39 +119,24 @@ function answerSubmit() {
     console.log("wrong answer");
   }
 }
-// for virtual keyboards devices
-// document.addEventListener("keypress", function (event) {
-//   if (event.keyCode==13) {
-//     answerSubmit();
-//   }
-// });
 
-// for physical keyboards
-document.addEventListener("keydown", function (event) {
-  // if (event.keyCode==13) {
-  //   answerSubmit();
-  // }
-
-  if (event.ctrlKey && event.key === " ") {
-    playAudio();
+document.addEventListener("keypress", function (event) {
+  if (event.keyCode == 13) {
+    answerSubmit();
   }
 });
 
+// // for physical keyboards
+// document.addEventListener("keydown", function (event) {
+//   // if (event.keyCode==13) {
+//   //   answerSubmit();
+//   // }
+
+//   if (event.ctrlKey && event.key === " ") {
+//     playAudio();
+//   }
+// });
+
 function playAudio() {
   document.getElementById("audiotest").play();
-
-
- 
-}
-
-
-function submitForm(event) {
-  // Prevent the default form submission
-  event.preventDefault();
-
-  // Your form submission logic here
-  answerSubmit();
-
-  var userInput = document.getElementById("userAnswerInp").value;
-  console.log("User input: " + userInput);
 }
