@@ -119,17 +119,16 @@ function answerSubmit() {
     console.log("wrong answer");
   }
 }
-
 // for virtual keyboards devices
 document.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
+  if (event.keyCode==13) {
     answerSubmit();
   }
 });
 
 // for physical keyboards
 document.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
+  if (event.keyCode==13) {
     answerSubmit();
   }
 
