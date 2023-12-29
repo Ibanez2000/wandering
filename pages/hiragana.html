@@ -50,18 +50,22 @@
       <h1>Kana Practice</h1>
 
       <div class="flex-container">
-        <div style="border-bottom: 2px solid gray">
+        <div style="border-bottom: 2px solid gray" id="hiraganaDiv">
           <p style="font-size: xx-large" id="hiraganaTxt">hiragana</p>
         </div>
-        <div style="border-bottom: 2px solid gray" id="kanjiTxtDiv">
+
+        <div style="border-bottom: 2px solid gray; display: none;" id="kanjiDiv">
           <p id="kanjiTxt">kanji</p>
         </div>
-        <div style="border-bottom: 2px solid gray" id="meaningTxtDiv">
+
+        <div style="border-bottom: 2px solid gray; display: none;" id="meaningDiv">
           <p id="meaningTxt">meaning</p>
         </div>
-        <div style="border-bottom: 2px solid gray" id="romajiTxtDiv">
+
+        <div style="border-bottom: 2px solid gray; display: none;" id="romajiDiv">
           <p id="romajiTxt">romaji</p>
         </div>
+
         <div>
           <input
             style="line-height: 2em; font-size: larger"
@@ -98,22 +102,30 @@
 
         <div class="flex-container-row">
           <div>
-            <button id="toggleRomajiBtn" type="button" onclick="toggleRomaji()">
-              Show Romaji
-            </button>
-          </div>
-          <div>
-            <button id="toggleKanjiBtn" type="button" onclick="toggleKanji()">
-              Show Kanji
+            <button
+              id="romajiBtn"
+              type="button"
+              onclick="visibilityToggle('romaji')"
+            >
+              Romaji
             </button>
           </div>
           <div>
             <button
-              id="toggleMeaningBtn"
+              id="kanjiBtn"
               type="button"
-              onclick="toggleMeaning()"
+              onclick="visibilityToggle('kanji')"
             >
-              Show meaning
+              Kanji
+            </button>
+          </div>
+          <div>
+            <button
+              id="meaningBtn"
+              type="button"
+              onclick="visibilityToggle('meaning')"
+            >
+              Meaning
             </button>
           </div>
         </div>
@@ -141,20 +153,17 @@
         var mp3FilePath;
         let number, hiragana, kanji, type, meaning, romaji;
         var vocablist = [jlpt5, simpleNouns];
-        var vocablistBasePath = "https://github.com/Ibanez2000/wandering/raw/main/files/japanese/";
+        var vocablistBasePath =
+          "https://github.com/Ibanez2000/wandering/raw/main/files/japanese/";
         var vocablistSelected;
         var obj;
 
         // First initialize
-        vocablistSelected = "jlpt5";
-        initialize(jlpt5);
-        hideExtended();
 
-        function hideExtended() {
-          document.getElementById("kanjiTxtDiv").style.display = "none";
-          document.getElementById("meaningTxtDiv").style.display = "none";
-          document.getElementById("romajiTxtDiv").style.display = "none";
-        }
+        vocablistSelected = "jlpt5";
+
+        // initialize takes an object as a parameter!
+        initialize(jlpt5);
 
         function selectChange() {
           if (document.getElementById("vocabulary").value == "jlpt5") {
@@ -170,7 +179,6 @@
         function initialize(whichList) {
           index = 0;
           obj = whichList;
-          
 
           readDataByIndex();
           updateElements();
@@ -191,15 +199,31 @@
           document.getElementById("kanjiTxt").innerHTML = kanji;
           //   console.log(kanji);
           document.getElementById("meaningTxt").innerHTML = meaning;
-          //   console.log(meaning);
+          console.log(meaning);
           document.getElementById("romajiTxt").innerHTML = romaji;
           //   console.log(romaji);
           document.getElementById("userAnswerInp").value = "";
-          // update audio source
-          //document.getElementById("audio").setAttribute("src", vocablistBasePath +vocablistSelected+"/mp3/"+index+".mp3");
-          
-          document.getElementById("audiotest").setAttribute("src", vocablistBasePath + vocablistSelected + "/mp3/"+index+".mp3");
-          
+          document
+            .getElementById("audiotest")
+            .setAttribute(
+              "src",
+              vocablistBasePath + vocablistSelected + "/mp3/" + index + ".mp3"
+            );
+        }
+
+        function visibilityToggle(element) {
+          div = document.getElementById(element + "Div");
+          btn = document.getElementById(element + "Btn");
+
+          if (div.style.display == "none") {
+            div.style.display = "block";
+            btn.style.border = "solid";
+          } else {
+            div.style.display = "none";
+            btn.style.border = "none";
+          }
+
+          focusUserAnswerInp();
         }
 
         function focusUserAnswerInp() {
@@ -208,27 +232,23 @@
         }
 
         function indexDecrease() {
-          //   console.log("old index:" + index);
           if (index > 0) {
             index--;
             readDataByIndex();
             updateElements();
           }
-          //   console.log("new index:" + index);
         }
 
         function indexIncrease() {
-          //   console.log("old index:" + index);
           if (index <= obj.length) {
             index++;
             readDataByIndex();
             updateElements();
           }
-          //   console.log("new index:" + index);
         }
 
         function isKeyPressed(event) {
-          if (event.key === "Enter" | event.keyCode === 13) {
+          if ((event.key === "Enter") | (event.keyCode === 13)) {
             console.log("enter key pressed");
             answerSubmit();
           } else {
@@ -252,56 +272,13 @@
           console.log("userAnswer:" + userAnswer);
           console.log("correct romaji:" + romaji);
 
-          if (userAnswer == romaji | userAnswer == hiragana) {
+          if ((userAnswer == romaji) | (userAnswer == hiragana)) {
             // what to do if correct? -> just go to next entry
             indexIncrease();
           } else {
             console.log("wrong answer");
           }
         }
-
-        function toggleRomaji() {
-          if (
-            document.getElementById("romajiTxtDiv").style.display == "block"
-          ) {
-            document.getElementById("romajiTxtDiv").style.display = "none";
-            document.getElementById("toggleRomajiBtn").innerHTML =
-              "Show Romaji";
-          } else {
-            document.getElementById("romajiTxtDiv").style.display = "block";
-            document.getElementById("toggleRomajiBtn").innerHTML =
-              "Hide Romaji";
-          }
-          focusUserAnswerInp();
-        }
-
-        function toggleKanji() {
-          if (document.getElementById("kanjiTxtDiv").style.display == "block") {
-            document.getElementById("kanjiTxtDiv").style.display = "none";
-            document.getElementById("toggleKanjiBtn").innerHTML = "Show Kanji";
-          } else {
-            document.getElementById("kanjiTxtDiv").style.display = "block";
-            document.getElementById("toggleKanjiBtn").innerHTML = "Hide Kanji";
-          }
-          focusUserAnswerInp();
-        }
-
-        function toggleMeaning() {
-          if (
-            document.getElementById("meaningTxtDiv").style.display == "block"
-          ) {
-            document.getElementById("meaningTxtDiv").style.display = "none";
-
-            document.getElementById("toggleMeaningBtn").innerHTML =
-              "Show meaning";
-          } else {
-            document.getElementById("meaningTxtDiv").style.display = "block";
-            document.getElementById("toggleMeaningBtn").innerHTML =
-              "Hide meaning";
-          }
-          focusUserAnswerInp();
-        }
-      
       </script>
 
       <h1>Hiragana 五十音</h1>
