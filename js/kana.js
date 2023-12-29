@@ -120,17 +120,17 @@ function answerSubmit() {
   }
 }
 // for virtual keyboards devices
-document.addEventListener("keypress", function (event) {
-  if (event.keyCode==13) {
-    answerSubmit();
-  }
-});
+// document.addEventListener("keypress", function (event) {
+//   if (event.keyCode==13) {
+//     answerSubmit();
+//   }
+// });
 
 // for physical keyboards
 document.addEventListener("keydown", function (event) {
-  if (event.keyCode==13) {
-    answerSubmit();
-  }
+  // if (event.keyCode==13) {
+  //   answerSubmit();
+  // }
 
   if (event.ctrlKey && event.key === " ") {
     playAudio();
