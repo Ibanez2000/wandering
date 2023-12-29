@@ -139,4 +139,19 @@ document.addEventListener("keydown", function (event) {
 
 function playAudio() {
   document.getElementById("audiotest").play();
+
+
+ 
+}
+
+
+function submitForm(event) {
+  // Prevent the default form submission
+  event.preventDefault();
+
+  // Your form submission logic here
+  answerSubmit();
+
+  var userInput = document.getElementById("userAnswerInp").value;
+  console.log("User input: " + userInput);
 }
