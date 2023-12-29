@@ -9,7 +9,7 @@ let anime = [
   },
   {
     number: 1,
-    hiragana: "いくぞ!",
+    hiragana: "いくぞ",
     kanji: "-",
     type: "",
     meaning: "Let's go!",
@@ -41,7 +41,7 @@ let anime = [
   },
   {
     number: 5,
-    hiragana: "ほんと?",
+    hiragana: "ほんと",
     kanji: "-",
     type: "",
     meaning: "Really?",
