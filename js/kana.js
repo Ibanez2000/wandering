@@ -123,7 +123,7 @@ function answerSubmit() {
 
 
 // for android, only keypress works! not keydown
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     answerSubmit();
   }
