@@ -1,123 +1,123 @@
 {
   "doranmon": [
     {
-    "number": 0,
-    "hiragana": "いんにちは",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "gt: in the past",
-    "romaji": "In ni chi wa"
-  },
-  {
-    "number": 1,
-    "hiragana": "どらんもん",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "Doranmon",
-    "romaji": "doranmon"
-  },
-  {
-    "number": 2,
-    "hiragana": "やあ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "yo!; hello there!; hi!",
-    "romaji": "yaa"
-  },
-  {
-    "number": 3,
-    "hiragana": "いらないよ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "I don't want it",
-    "romaji": "iranai yo"
-  },
-  {
-    "number": 4,
-    "hiragana": "いやだ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "gt: I refuse",
-    "romaji": "iya da"
-  },
-  {
-    "number": 5,
-    "hiragana": "もただおり",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "gt: It's too late",
-    "romaji": "moo tada ori"
-  },
-  {
-    "number": 6,
-    "hiragana": "まあ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "oh!; oh dear!;",
-    "romaji": "maa"
-  },
-  {
-    "number": 7,
-    "hiragana": "ごめんわ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "Sorry",
-    "romaji": "gomen wa"
-  },
-  {
-    "number": 8,
-    "hiragana": "いいよ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "Ok",
-    "romaji": "Ii yo"
-  },
-  {
-    "number": 9,
-    "hiragana": "かっこう",
-    "kanji": "格好",
-    "type": "-",
-    "meaning": "appearance",
-    "romaji": "kakkou"
-  },
-  {
-    "number": 10,
-    "hiragana": "わるい",
-    "kanji": "悪いね",
-    "type": "-",
-    "meaning": "bad; poor; undesirable",
-    "romaji": "warui"
-  },
-  {
-    "number": 11,
-    "hiragana": "みていよう",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "gt: Let's watch",
-    "romaji": "mite iyou"
-  },
-  {
-    "number": 12,
-    "hiragana": "いそけ",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "-",
-    "romaji": "iso ke"
-  },
-  {
-    "number": 13,
-    "hiragana": "うん",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "yes; yeah"
-  },
-  {
-    "number": 14,
-    "hiragana": "おかしいな",
-    "kanji": "-",
-    "type": "-",
-    "meaning": "gt: that's strange",
-    "romaji": "okashii na"
-  }
-]
+      "number": 0,
+      "hiragana": "いんにちは",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "gt: in the past",
+      "romaji": "In ni chi wa"
+    },
+    {
+      "number": 1,
+      "hiragana": "どらんもん",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "Doranmon",
+      "romaji": "doranmon"
+    },
+    {
+      "number": 2,
+      "hiragana": "やあ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "yo!; hello there!; hi!",
+      "romaji": "yaa"
+    },
+    {
+      "number": 3,
+      "hiragana": "いらないよ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "I don't want it",
+      "romaji": "iranai yo"
+    },
+    {
+      "number": 4,
+      "hiragana": "いやだ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "gt: I refuse",
+      "romaji": "iya da"
+    },
+    {
+      "number": 5,
+      "hiragana": "もただおり",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "gt: It's too late",
+      "romaji": "moo tada ori"
+    },
+    {
+      "number": 6,
+      "hiragana": "まあ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "oh!; oh dear!;",
+      "romaji": "maa"
+    },
+    {
+      "number": 7,
+      "hiragana": "ごめんわ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "Sorry",
+      "romaji": "gomen wa"
+    },
+    {
+      "number": 8,
+      "hiragana": "いいよ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "Ok",
+      "romaji": "Ii yo"
+    },
+    {
+      "number": 9,
+      "hiragana": "かっこう",
+      "kanji": "格好",
+      "type": "-",
+      "meaning": "appearance",
+      "romaji": "kakkou"
+    },
+    {
+      "number": 10,
+      "hiragana": "わるい",
+      "kanji": "悪いね",
+      "type": "-",
+      "meaning": "bad; poor; undesirable",
+      "romaji": "warui"
+    },
+    {
+      "number": 11,
+      "hiragana": "みていよう",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "gt: Let's watch",
+      "romaji": "mite iyou"
+    },
+    {
+      "number": 12,
+      "hiragana": "いそけ",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "-",
+      "romaji": "iso ke"
+    },
+    {
+      "number": 13,
+      "hiragana": "うん",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "yes; yeah"
+    },
+    {
+      "number": 14,
+      "hiragana": "おかしいな",
+      "kanji": "-",
+      "type": "-",
+      "meaning": "gt: that's strange",
+      "romaji": "okashii na"
+    }
+  ]
 }
