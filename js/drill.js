@@ -1,5 +1,5 @@
 
-let dataURL ="https://raw.githubusercontent.com/Ibanez2000/wandering/main/data/"
+let dataURL ="https://raw.githubusercontent.com/Ibanez2000/wandering/files/drillData/"
 
 
 let dataVocabulary = [
