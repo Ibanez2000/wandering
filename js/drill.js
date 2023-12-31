@@ -1,13 +1,14 @@
 
-let dataURL ="https://raw.githubusercontent.com/Ibanez2000/wandering/files/drillData/"
+let dataURL ="https://raw.githubusercontent.com/Ibanez2000/wandering/main/files/drillData/"
 
 
 let dataVocabulary = [
-  "anime",
-  "anime",
+  "JAanime",
+  "JAsimpleNouns",
 ];
 
-let dataJSONurl = [dataURL+dataVocabulary[0]+".json",dataURL+dataVocabulary[1]+".json"];
+
+let dataJSONurl = [dataURL+dataVocabulary[0]+"/data.json"];
 
 console.log(dataJSONurl[0]);
 
