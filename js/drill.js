@@ -8,7 +8,10 @@ let dataVocabulary = [
 ];
 
 
-let dataJSONurl = [dataURL+dataVocabulary[0]+"/data.json"];
+let dataJSONurl = [dataURL+dataVocabulary[0]+"/"+dataVocabulary[0]+".json"];
+
+
+
 
 console.log(dataJSONurl[0]);
 
