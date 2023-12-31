@@ -1,16 +1,26 @@
 {
-  "books": [
+  "anime": [
     {
-      "title": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "publishedYear": 1925,
-      "genres": ["Fiction", "Classic"]
-    },
-    {
-      "title": "To Kill a Mockingbird",
-      "author": "Harper Lee",
-      "publishedYear": 1960,
-      "genres": ["Fiction", "Drama"]
+      "fieldTypes": {
+        "field0": "text",
+        "field1": "text",
+        "field2": "text",
+        "field3": "text",
+        "field4": "text",
+        "field5": "text",
+        "field6": "picture",
+        "field7": "audio"
+      },
+      "fieldVisibility": {
+        "field0": "shown",
+        "field1": "shown",
+        "field2": "hidden",
+        "field3": "hidden",
+        "field4": "hidden",
+        "field5": "hidden",
+        "field6": "hidden",
+        "field7": "hidden"
+      }
     }
   ]
 }
