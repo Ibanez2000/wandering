@@ -49,9 +49,38 @@
     <div class="box">
       <h1>Impressum</h1>
 
+      <div class="flex-container" id="fieldContainer">
+        <div id="field1">
+          <!-- either p or audio or image -->
+        </div>
+        <div id="field2"></div>
+      </div>
+
+    <script src="../js/drillnew.js" type="text/javascript"></script>
 
 
+      <script>
 
+        const field = [
+          "field0",
+          "field1",
+          "field2",
+          "field3",
+          "field4",
+          "field5",
+          "field6",
+          "field7",
+          "field8",
+        ];
+
+        // create the divs
+
+        for (let i = 0; i < 8; i++) {
+          var element = document.createElement("div");
+          element.setAttribute("id", "field1Div" + i);
+          document.getElementById("fieldContainer").appendChild(element);
+        }
+      </script>
     </div>
 
     <!-- End content block -->
@@ -66,6 +95,7 @@
         }
       }
     </script>
-    <script src="../js/drill.js" type="text/javascript"></script>
+
+    <!-- <script type="module" src="../js/drillnewImport.js"></script> -->
   </body>
 </html>
