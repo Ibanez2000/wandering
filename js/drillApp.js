@@ -34,15 +34,18 @@ async function makeRequests(promiseArray) {
 //Invoke the main program, use readJSON for getting the data with asynchronous fetch command and call main(data);
 readJSON = makeRequests(fetchPromises());
 
+//Invoke the main program, just read a mock db from test.js for testing purposes
+// readJS =   JAanime;
 
 
 
 
 function main(data) {
+    dataNew = data;
   // this stuff depends on whole vocab db
   fieldDiv = createFields();
   vocabList = createVocabularySelector(data);
-  vocabSelected = document.getElementById("vocabularySelectorSelect").value;
+// vocabSelected = document.getElementById("vocabularySelectorSelect").value;
 
 //   selectedVoc = retrieveData(vocabList, vocabSelected);
 

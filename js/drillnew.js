@@ -41,9 +41,9 @@ function main(data) {
   dataNew = data;
 
   fieldDiv = createFields(fieldAmount);
-  createVocabularySelector();
-  vocSelected();
-  contentField = initializeContentFields(dataNew);
+  // createVocabularySelector();
+  // vocSelected();
+  // contentField = initializeContentFields(dataNew);
 
 
 }
