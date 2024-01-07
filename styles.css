@@ -297,3 +297,36 @@ a:active {
  display: none;
  border-bottom: 2px solid gray;
 }
+
+
+.flexboxContainer {
+  width: 100%;
+  margin: auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color:rgb(190, 121, 31);
+}
+
+.flexboxRowContainer {
+  display: flex;
+  flex-direction: row;
+  background-color: #d4d7dc;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexboxColumnContainer {
+  display: flex;
+  flex-direction: column;
+  background-color:#b700bd;
+}
+.flexboxColumnContainer .flexboxField{
+  background-color:#608180;
+
+}
+
+.flexboxRowContainer button {
+  width: 120px;
+}

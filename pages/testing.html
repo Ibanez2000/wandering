@@ -49,40 +49,57 @@
     <div class="box">
       <h1>Impressum</h1>
 
-      <div class="flex-container" id="fieldContainer">
-        <div id="field1">
-          <!-- either p or audio or image -->
+      <div class="flex-container" id="kanaApp">
+        <div>field</div>
+
+        <div class="flex-container-row" id="controlContainer">
+          <div>
+            <button id="previousBtn" type="button" onclick="indexDecrease()">
+              Previous
+            </button>
+          </div>
+          <div>
+            <button id="revealBtn" type="button" onclick="reveal()">
+              Reveal
+            </button>
+          </div>
+
+          <div>
+            <button id="nextBtn" type="button" onclick="indexIncrease()">
+              Next
+            </button>
+          </div>
         </div>
-        <div id="field2"></div>
+
+        <!-- <div class="flex-container-row" id="DropdownContainer">
+          <div class="dropdown" id="dropdownOne">
+            <!-- Button to trigger the dropdown -->
+            <button onclick="toggleDropdown()">Open Dropdown</button>
+          </div>
+
+
+
+            <div class="dropdown-content" id="dropdownContent">
+              <label><input type="checkbox" value="Option 1" /> Option 1</label>
+              <label><input type="checkbox" value="Option 2" /> Option 2</label>
+              <label><input type="checkbox" value="Option 3" /> Option 3</label>
+              <label><input type="checkbox" value="Option 4" /> Option 4</label>
+              <label><input type="checkbox" value="Option 5" /> Option 5</label>
+              <label><input type="checkbox" value="Option 6" /> Option 6</label>
+              <label><input type="checkbox" value="Option 7" /> Option 7</label>
+              <label><input type="checkbox" value="Option 8" /> Option 8</label>
+
+            </div>
+          </div>
+        </div> -->
+
+
+
+
       </div>
-
-    <script src="../js/drillnew.js" type="text/javascript"></script>
-
-
-      <script>
-
-        const field = [
-          "field0",
-          "field1",
-          "field2",
-          "field3",
-          "field4",
-          "field5",
-          "field6",
-          "field7",
-          "field8",
-        ];
-
-        // create the divs
-
-        for (let i = 0; i < 8; i++) {
-          var element = document.createElement("div");
-          element.setAttribute("id", "field1Div" + i);
-          document.getElementById("fieldContainer").appendChild(element);
-        }
-      </script>
     </div>
 
+    <script src="../js/drillnew.js" type="text/javascript"></script>
     <!-- End content block -->
 
     <script>

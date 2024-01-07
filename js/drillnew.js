@@ -3,7 +3,10 @@ const URL =
 
 const vocabulary = ["JAanime", "JAsimpleNouns"];
 
-var obj = [];
+var selectedVocabIndex;
+var selectedVocabName;
+const fieldAmount = 8; 
+// find a way to read this from json
 
 path = getJSONURL(URL, vocabulary);
 
@@ -35,59 +38,111 @@ makeRequests();
 // Reminder: we cannot continue with code on the top level because we don't know when makeRequests finishes, so we have to initiate everything else from within there
 
 function main(data) {
-  // let dataNew = data;
-
   dataNew = data;
 
+  fieldDiv = createFields(fieldAmount);
+  createVocabularySelector();
+  vocSelected();
+  contentField = initializeContentFields(dataNew);
 
- keys = Object.keys(dataNew);
 
-
-  
-  console.log(dataNew.keys());
-
-  dataNew.forEach(function (item) {
-    // console.log(item.keys());
-
-    designation = "";
-
-    // console.log(item.JAanime);
-  });
-
-  vocab = [];
-
-  // for each element
-
-  //console.log(dataNew);
-  // createVocabularySelector();
-  // console.log("hello");
-
-  createVocabularySelector(dataNew);
-
-  // console.log(vocSelected);
 }
 
-function createVocabularySelector(dataNew) {
-  const options = dataNew.map((obj) => Object.keys(obj)[0]);
+function toggleDropdown(){
+const dropdown = document.getElementById("dropdownContent");
 
+dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
+
+
+
+}
+
+
+function initializeContentFields(dataNew) {
+  const dataSelectedVocab = dataNew[0][vocSelectedName][0];
+  const fieldTypes = dataNew[0][vocSelectedName][0].fieldTypes;
+  contentField = []
+
+  for (let i = 0; i < Object.keys(fieldTypes).length; i++) {
+    let fieldContent = fieldTypes["field" + i];
+    let parentDiv = "field" + i + "Div";
+
+    if (fieldContent == "text") {
+      var element = document.createElement("p");
+      element.innerHTML = "hello";
+      element.setAttribute("id", "field" + i + "Text");
+    }
+    if (fieldContent == "picture") {
+      var element = document.createElement("img");
+      element.setAttribute("id", "field" + i + "Picture");
+    }
+    if (fieldContent == "audio") {
+      var element = document.createElement("audio");
+      element.setAttribute("id", "field" + i + "Audio");
+    }
+
+    document.getElementById(parentDiv).appendChild(element);
+    contentField.push(element.id);
+    
+    
+  }
+  return contentField;
+}
+
+function visibilityToggle(element) {
+  elementToToggle = document.getElementById(element);
+
+  if (elementToToggle.style.display == "none") {
+    elementToToggle.style.display = "block";
+  } else {
+    elementToToggle.style.display = "none";
+  }
+}
+
+function createFields(fieldAmount) {
+  console.log("Div fields are created.");
+
+  const field =[]
+  for (let i=0; i< fieldAmount; i++){field.push("field"+i)};
+
+  let fieldDiv = [];
+
+  for (let i = 0; i < fieldAmount; i++) {
+    var element = document.createElement("div");
+    element.setAttribute("id", "field" + i + "Div");
+    document.getElementById("fieldContainer").appendChild(element);
+    document.getElementById("field" + i + "Div").style.display = "none";
+    fieldDiv.push(document.getElementById("field" + i + "Div"));
+  }
+  return fieldDiv;
+}
+
+function createVocabularySelector() {
+  const listOfVocabs = dataNew.map((obj) => Object.keys(obj)[0]);
   var vocabularySelectorSelect = document.createElement("select");
   vocabularySelectorSelect.setAttribute("id", "vocabularySelectorSelect");
   document
     .getElementById("fieldContainer")
     .appendChild(vocabularySelectorSelect);
 
-  options.forEach(function (optionText) {
+  listOfVocabs.forEach(function (optionText) {
     var optionElement = document.createElement("option");
     optionElement.text = optionText;
     vocabularySelectorSelect.add(optionElement);
   });
 
   document.getElementById("vocabularySelectorSelect").onchange = vocSelected;
-  vocSelected();
 }
 
 function vocSelected() {
-  // console.log("new vocabulary selected");
-  vocSelected = document.getElementById("vocabularySelectorSelect").value;
-  // console.log(vocSelected);
+  vocSelectedName = document.getElementById("vocabularySelectorSelect").value;
+
+  const listOfVocabs = dataNew.map((obj) => Object.keys(obj)[0]);
+  var vocSelectedIndex = listOfVocabs.indexOf(vocSelectedName);
+
+  // console.log(
+  //   "Vocabulary selected " + vocSelectedName + " at index " + vocSelectedIndex
+  // );
+
+  // add a function call to do what needs to be done after new vocabulary chosen
 }
