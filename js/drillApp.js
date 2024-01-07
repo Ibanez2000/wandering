@@ -32,10 +32,11 @@ async function makeRequests(promiseArray) {
 
 
 //Invoke the main program, use readJSON for getting the data with asynchronous fetch command and call main(data);
-readJSON = makeRequests(fetchPromises());
+// readJSON = makeRequests(fetchPromises());
 
 //Invoke the main program, just read a mock db from test.js for testing purposes
 // readJS =   JAanime;
+// readJS = main(test);
 
 
 

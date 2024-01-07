@@ -1,3 +1,5 @@
+testDB =
+
 [
   {
     JAanime: [
