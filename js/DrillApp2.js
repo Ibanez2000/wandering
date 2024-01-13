@@ -1,130 +1,187 @@
+const Vocab = {
+  vocabularyData: data,
 
-import data from '../files/testNew.json'  assert { type: 'json' };
+  set index(newValue) {
+    this._index = newValue;
+    this.indexChanged();
+  },
 
+  get index() {
+    return this._index;
+  },
+  set vocabularyName(newValue) {
+    this._vocabularyName = newValue;
+    this.vocabularyChanged();
+  },
 
+  get vocabularyName() {
+    return this._vocabularyName;
+  },
+  indexChanged: function () {
 
-console.log(data);
-
-// const Vocab = {
-//   // change the index property and this object will provide 6 dynamically updated vocab properties to the UI object
-//   data: testDB,
-
-//   _index: 0,
-//   _vocabularyName: "JAanime",
-
-//   longName: undefined,
-//   externalURL: undefined,
-//   fieldType: undefined,
-//   fieldVisibility: undefined,
-//   fieldName: undefined,
-//   contentAtIndex: undefined,
-//   availableVocabulary: undefined,
-
-
-//   set index(newValue) {
-//     this._index = newValue;
-//     this.indexOrVocabularyChanged();
-//   },
-
-//   get index() {
-//     return this._index;
-//   },
-//   set vocabularyName(newValue) {
-//     this._vocabularyName = newValue;
-//     this.indexOrVocabularyChanged();
-//   },
-
-//   get vocabularyName() {
-//     return this._vocabularyName;
-//   },
-
-//   indexOrVocabularyChanged: function () {
-//     const name = this._vocabularyName;
-//     const index = this._index;
-
-//     // console.log("Name:" + name + " Index:" + index);
-
-//     // best to read json by the vocabulary index number -> find out
-//     vocabIndex = this.mapVocabulary()[name];
-//     vocabularyData = this.data[vocabIndex][name];
-
-//     this.longName = vocabularyData[0].longName;
-//     this.externalURL = vocabularyData[0].externalURL;
-//     this.fieldType = vocabularyData[0].fieldType;
-//     this.fieldVisibility = vocabularyData[0].fieldVisibility;
-//     this.fieldName = vocabularyData[0].fieldName;
-//     this.contentAtIndex = vocabularyData[1].content[index];
-//   },
-
-//   mapVocabulary: function () {
-//     var vocab = {};
-
-//     var entryNumber = [];
-//     for (let i = 0; i < this.data.length; i++) {
-//       entryNumber.push(i);
-//     }
-//     const entryName = this.data.map((obj) => Object.keys(obj)[0]);
-
-//     for (let i = 0; i < entryName.length; i++) {
-//       var key = entryName[i];
-//       var value = i;
-//       vocab[key] = value;
-//     }
-
-//     return vocab;
-//   },
-
-//   availableVocabulary: function(){
-//    const vocab = this.mapVocabulary();
-
-//    const name = [];
-
-//    console.log(vocab);
-
+    const contentAtIndex = this.vocabularyData[this.vocabularyName].content[this.index];
     
+  },
+  vocabularyChanged: function () {
+    this.longName = this.vocabularyData[this.vocabularyName].meta.longName;
+    this.externalURL = this.vocabularyData[this.vocabularyName].meta.externalURL;
+    this.name = this.vocabularyData[this.vocabularyName].meta.field.name;
+    this.type = this.vocabularyData[this.vocabularyName].meta.field.type;
 
+    this.initialVisibility =
+      this.vocabularyData[this.vocabularyName].meta.field.initialVisibility;
+    this.content = this.vocabularyData[this.vocabularyName].content;
+  },
+
+  availableVocab: function () {
+    // available vocab [ [names], [longNames]]
+
+    const availableVocab = [];
+    // get the names
+    const keys = Object.keys(this.vocabularyData);
+
+    availableVocab.push(keys);
+
+    let longNames = [];
+    // get longNames
+    keys.forEach((element) => {
+      const longName = this.vocabularyData[element].meta.longName;
+      longNames.push(longName);
+    });
+    availableVocab.push(longNames);
+
+    return availableVocab;
+  },
+};
+
+const UI = {
+  fieldCount: 8,
+  set index(newValue) {
+    this._index = newValue;
+    this.informVocabOfIndexUpdate();
+
+  },
+
+  get index() {
+    return this._index;
+  },
+  set selectedVocabulary(newValue) {
+    this._selectedVocabulary = newValue;
+    this.informVocabOfVocabUpdate();
+  },
+
+  get selectedVocabulary() {
+    return this._selectedVocabulary;
+  },
+
+  displayVocab: function () {},
+
+
+  increaseIndex: function () {
+    this.index++;
+    console.log("index increased");
+    this.informVocabOfIndexUpdate();
+  },
+  decreaseIndex: function () {
+    this.index--;
+    console.log("index decreased");
+    this.informVocabOfIndexUpdate();
+  },
+  initialize: function () {
+    this.selectedVocabulary = "JAAnime";
+    this.index = 0;
+
+    this.fieldDiv = this.initCreateFieldDiv();
+    this.vocabSelect = this.initCreateVocabSelector();
+    this.initButtons();
+  },
+  initButtons: function () {
+    document.getElementById("increaseBtn").onclick = this.increaseIndex.bind(this);
+    document.getElementById("decreaseBtn").onclick = this.decreaseIndex.bind(this);;
+  },
+
+  createOrUpdateFieldContentElements: function(){
+      let fieldElements = [];
+
+      const test = Vocab.type;
+      console.log(test);
     
+      // for (const [key, value] of Object.entries(activeVocabulary[0].fieldTypes)) {
+      //   // console.log(`${key}: ${value}`);
+      //   i = key.at(5);
+    
+      //   const fieldType = activeVocabulary[0].fieldTypes[key];
+    
+      //   if (fieldType == "text") {
+      //     var elementToCreate = "p";
+      //   }
+      //   if (fieldType == "picture") {
+      //     var elementToCreate = "img";
+      //   }
+      //   if (fieldType == "audio") {
+      //     var elementToCreate = "p";
+      //   }
+    
+      //   var element = document.createElement(elementToCreate);
+      //   element.innerHTML = ``;
+      //   element.id = `${key}Content`;
+      //   element.class = "flexboxFieldContent";
+    
+      //   fieldDiv[i].appendChild(element);
+      //   fieldElements.push(element);
+      
+    }
 
+  ,
 
+  initCreateFieldDiv: function () {
+    let fieldDiv = [];
 
-//   }
-// };
+    for (let i = 0; i < this.fieldCount; i++) {
+      var element = document.createElement("div");
+      element.id = `field${i}`;
+      element.class = "flexboxField";
+      element.style.display = "block";
 
-// const UI = {
-//   selectedVocabulary: undefined, //this is the object name of the vocab in the db
-//   index: 0,
-//   fieldCount: 8,
-//   fieldDiv: [],
+      document.getElementById("fieldContainer").appendChild(element);
 
-//   displayVocab: function () {},
-//   increaseIndex: function () {
-//     this.index++;
-//   },
-//   initialize: function() {
-//     this.fieldDiv = this.initCreateFieldDiv();
-//   },
+      fieldDiv.push(document.getElementById("field" + i));
+    }
+    return fieldDiv;
+  },
+  initCreateVocabSelector: function () {
+    var vocabSelect = document.createElement("select");
+    vocabSelect.id = "vocabSelectorSelect";
+    document.getElementById("vocabulary").appendChild(vocabSelect);
+    const [names, longNames] = Vocab.availableVocab();
+    longNames.forEach(function (option) {
+      const optionElement = document.createElement("option");
+      optionElement.text = option;
+      vocabSelect.add(optionElement);
+      vocabSelect.onclick = UI.vocabularyUserSelectedChange;
+    });
 
-//   initCreateFieldDiv: function () {
-//     let fieldDiv = [];
+    return vocabSelect;
+  },
+  informVocabOfVocabUpdate: function () {
+    console.log("Inform Vocab of Vocabulary update.");
+    Vocab.vocabularyName = UI.selectedVocabulary;
+  },
+  informVocabOfIndexUpdate: function () {
+    console.log("Inform Vocab of Index update.");
+    Vocab.index = this.index;
+  },
+  vocabularyUserSelectedChange: function () {
+    const selectedLongName = UI.vocabSelect.value;
+    const [names, longNames] = Vocab.availableVocab();
+    const index = longNames.indexOf(selectedLongName);
+    const selectedName = names[index];
 
-//     for (let i = 0; i < this.fieldCount; i++) {
-//       var element = document.createElement("div");
-//       element.id = `field${i}`;
-//       element.class = "flexboxField";
-//       element.style.display = "block";
+    UI.selectedVocabulary = selectedName;
+    UI.index = 0;
+  },
+};
 
-//       document.getElementById("fieldContainer").appendChild(element);
-
-//       fieldDiv.push(document.getElementById("field" + i));
-//     }
-//     return fieldDiv;
-//   },
-// };
-
-// // test = Vocab.readVocabulary(0,"JAanime");
-
-// UI.initialize();
-
-// Vocab.index = 1;
-// Vocab.availableVocabulary();
-
+UI.initialize();
+UI.createOrUpdateFieldContentElements();
+console.log(Vocab.type);
