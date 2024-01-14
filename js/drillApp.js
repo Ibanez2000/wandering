@@ -152,12 +152,6 @@ function writeContentToFields(activeVocabulary, index) {
 function readSelectedVocabulary(vocabSelectedIndex, vocabSelectedName) {
   activeVocabulary = dataGlobal[vocabSelectedIndex][vocabSelectedName];
 
-  //   activeVocabulary[0].externalURL
-  //   activeVocabulary[0].fieldNames
-  //   activeVocabulary[0].fieldTypes
-  //   activeVocabulary[0].fieldVisibility
-  //   activeVocabulary[1].content
-
   return activeVocabulary;
 }
 

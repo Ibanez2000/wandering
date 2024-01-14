@@ -3,7 +3,7 @@ const Vocab = {
 
   set index(newValue) {
     this._index = newValue;
-    this.indexChanged();
+    this.contentAtIndex = this.indexChanged();
   },
 
   get index() {
@@ -18,19 +18,31 @@ const Vocab = {
     return this._vocabularyName;
   },
   indexChanged: function () {
+    const contentAtIndex = [];
 
-    const contentAtIndex = this.vocabularyData[this.vocabularyName].content[this.index];
-    
+    const contentObjects =
+      this.vocabularyData[this.vocabularyName].content[this.index];
+
+    const values = Object.values(contentObjects);
+
+    for (let i = 0; i < values.length; i++) {
+      contentAtIndex.push(values[i]);
+    }
+
+    return contentAtIndex;
   },
   vocabularyChanged: function () {
     this.longName = this.vocabularyData[this.vocabularyName].meta.longName;
-    this.externalURL = this.vocabularyData[this.vocabularyName].meta.externalURL;
-    this.name = this.vocabularyData[this.vocabularyName].meta.field.name;
+    this.externalURL =
+      this.vocabularyData[this.vocabularyName].meta.externalURL;
+    this.description =
+      this.vocabularyData[this.vocabularyName].meta.field.description;
     this.type = this.vocabularyData[this.vocabularyName].meta.field.type;
-
     this.initialVisibility =
       this.vocabularyData[this.vocabularyName].meta.field.initialVisibility;
     this.content = this.vocabularyData[this.vocabularyName].content;
+    this.contentLength =
+      this.vocabularyData[this.vocabularyName].content.length;
   },
 
   availableVocab: function () {
@@ -59,7 +71,7 @@ const UI = {
   set index(newValue) {
     this._index = newValue;
     this.informVocabOfIndexUpdate();
-
+    this.writeContent();
   },
 
   get index() {
@@ -68,6 +80,9 @@ const UI = {
   set selectedVocabulary(newValue) {
     this._selectedVocabulary = newValue;
     this.informVocabOfVocabUpdate();
+    this.fieldElements = this.createOrUpdateFieldContentElements();
+    this.fieldVisibility = this.fieldVisibilityUpdateInitial();
+    this.writeFieldVisibility();
   },
 
   get selectedVocabulary() {
@@ -76,64 +91,87 @@ const UI = {
 
   displayVocab: function () {},
 
-
   increaseIndex: function () {
-    this.index++;
+    if (this.index < Vocab.content.length) {
+      this.index++;
+    }
+
     console.log("index increased");
-    this.informVocabOfIndexUpdate();
   },
   decreaseIndex: function () {
-    this.index--;
+    if (this.index > 0) {
+      this.index--;
+    }
     console.log("index decreased");
-    this.informVocabOfIndexUpdate();
   },
+
   initialize: function () {
+    this.fieldDiv = this.initCreateFieldDiv();
     this.selectedVocabulary = "JAAnime";
     this.index = 0;
 
-    this.fieldDiv = this.initCreateFieldDiv();
     this.vocabSelect = this.initCreateVocabSelector();
     this.initButtons();
   },
-  initButtons: function () {
-    document.getElementById("increaseBtn").onclick = this.increaseIndex.bind(this);
-    document.getElementById("decreaseBtn").onclick = this.decreaseIndex.bind(this);;
+  writeFieldVisibility: function () {
+    for (let i = 0; i < this.fieldCount; i++) {
+      if (this.fieldVisibility[i] == "block") {
+        this.fieldDiv[i].style.display = "block";
+      } else if (this.fieldVisibility[i] == "none") {
+        this.fieldDiv[i].style.display = "none";
+      }
+    }
+  },
+  writeContent: function () {
+    const contentAtIndex = Vocab.contentAtIndex;
+
+    // need to add some logic here for images and audios
+    for (let i = 0; i < this.fieldElements.length; i++) {
+      this.fieldElements[i].innerHTML = Vocab.contentAtIndex[i];
+    }
   },
 
-  createOrUpdateFieldContentElements: function(){
-      let fieldElements = [];
-
-      const test = Vocab.type;
-      console.log(test);
-    
-      // for (const [key, value] of Object.entries(activeVocabulary[0].fieldTypes)) {
-      //   // console.log(`${key}: ${value}`);
-      //   i = key.at(5);
-    
-      //   const fieldType = activeVocabulary[0].fieldTypes[key];
-    
-      //   if (fieldType == "text") {
-      //     var elementToCreate = "p";
-      //   }
-      //   if (fieldType == "picture") {
-      //     var elementToCreate = "img";
-      //   }
-      //   if (fieldType == "audio") {
-      //     var elementToCreate = "p";
-      //   }
-    
-      //   var element = document.createElement(elementToCreate);
-      //   element.innerHTML = ``;
-      //   element.id = `${key}Content`;
-      //   element.class = "flexboxFieldContent";
-    
-      //   fieldDiv[i].appendChild(element);
-      //   fieldElements.push(element);
-      
+  initButtons: function () {
+    document.getElementById("increaseBtn").onclick =
+      this.increaseIndex.bind(this);
+    document.getElementById("decreaseBtn").onclick =
+      this.decreaseIndex.bind(this);
+  },
+  createOrUpdateFieldContentElements: function () {
+    if (this.hasOwnProperty("fieldElements")) {
+      for (let i; i < this.fieldElements.length; i++) {
+        element[i].remove();
+      }
     }
 
-  ,
+    let fieldElements = [];
+    const type = Vocab.type;
 
+    for (const key in type) {
+      const i = key.at(5);
+      const value = type[key];
+
+      if (value == "text") {
+        var elementToCreate = "p";
+      }
+      if (value == "picture") {
+        var elementToCreate = "img";
+      }
+      if (value == "audio") {
+        var elementToCreate = "p";
+      }
+      var element = document.createElement(elementToCreate);
+
+      element.innerHTML = ``;
+      element.id = `${key}Content`;
+      element.class = "flexboxFieldContent";
+
+      this.fieldDiv[i].appendChild(element);
+      fieldElements.push(element);
+    }
+
+    return fieldElements;
+  },
   initCreateFieldDiv: function () {
     let fieldDiv = [];
 
@@ -165,13 +203,13 @@ const UI = {
   },
   informVocabOfVocabUpdate: function () {
     console.log("Inform Vocab of Vocabulary update.");
-    Vocab.vocabularyName = UI.selectedVocabulary;
+    Vocab.vocabularyName = this.selectedVocabulary;
   },
   informVocabOfIndexUpdate: function () {
     console.log("Inform Vocab of Index update.");
     Vocab.index = this.index;
   },
-  vocabularyUserSelectedChange: function () {
+  vocabularyUserSelectedChange: () => {
     const selectedLongName = UI.vocabSelect.value;
     const [names, longNames] = Vocab.availableVocab();
     const index = longNames.indexOf(selectedLongName);
@@ -180,8 +218,23 @@ const UI = {
     UI.selectedVocabulary = selectedName;
     UI.index = 0;
   },
+  fieldVisibilityUpdateInitial: function () {
+    const fieldVisibility = [];
+
+    const values = Object.values(Vocab.initialVisibility);
+    for (let i = 0; i < this.fieldCount; i++) {
+      if (values[i] == "shown") {
+        fieldVisibility.push("block");
+      } else if (values[i] == "hidden") {
+        fieldVisibility.push("none");
+      }
+    }
+
+    return fieldVisibility;
+  },
 };
 
 UI.initialize();
-UI.createOrUpdateFieldContentElements();
-console.log(Vocab.type);
+
+const testVariable = { UI, Vocab };
+console.log("hello");

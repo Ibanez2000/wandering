@@ -76,7 +76,7 @@ const data = {
           field7: "unused3",
         },
         type: {
-          field0: "text",
+          field0: "picture",
           field1: "text",
           field2: "text",
           field3: "text",
