@@ -59,6 +59,9 @@
         <div class="flexboxRowContainer" id="userEntryContainer">
           <input type="text" placeholder="Type Answer" id="userEntry" />
         </div>
+        <div class="flexboxRowContainer" id="userScoreContainer">
+          <p id="userScoreContent"></p>
+        </div>
 
         <div class="flexboxRowContainer" id="controls1Container">
           <div>
@@ -73,12 +76,12 @@
         </div>
         <div class="flexboxRowContainer" id="controls2Container">
           <div>
-            <button id="askFieldsBtn" type="button" onclick="indexDecrease()">
+            <button id="askForBtn" type="button" >
               <p>Ask for</p>
             </button>
           </div>
           <div>
-            <button id="showFieldsBtn" type="button" onclick="indexIncrease()">
+            <button id="showFieldsBtn" type="button"">
               <p>Show/Hide</p>
             </button>
           </div>
@@ -90,30 +93,6 @@
         </div>
         <div class="flexboxRowContainer" id="controls2Detail">
           <div class="dropdown-content" id="dropdownContent">
-            <label id="option1"
-              ><input type="checkbox" value="Option 1" /> Option 1</label
-            >
-            <label id="option2"
-              ><input type="checkbox" value="Option 2" /> Option 2</label
-            >
-            <label id="option3"
-              ><input type="checkbox" value="Option 3" /> Option 3</label
-            >
-            <label id="option4"
-              ><input type="checkbox" value="Option 4" /> Option 4</label
-            >
-            <label id="option5"
-              ><input type="checkbox" value="Option 5" /> Option 5</label
-            >
-            <label id="option6"
-              ><input type="checkbox" value="Option 6" /> Option 6</label
-            >
-            <label id="option7"
-              ><input type="checkbox" value="Option 7" /> Option 7</label
-            >
-            <label id="option8"
-              ><input type="checkbox" value="Option 8" /> Option 8</label
-            >
           </div>
         </div>
         <div class="flexboxRowContainer" id="vocabulary"></div>
@@ -134,7 +113,7 @@
         }
       }
     </script>
-    <script src="../files/drillData/testNew2.js"></script>
+    <!-- <script src="../files/drillData/testNew2.js"></script> -->
 
     <script type="module" src="../js/DrillApp2.js"></script>
   </body>

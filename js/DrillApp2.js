@@ -1,3 +1,8 @@
+// node
+// var data = require("../files/drillData/testNew2.js") ;
+
+import data from "../files/drillData/testNew2.js";
+
 const Vocab = {
   vocabularyData: data,
 
@@ -5,7 +10,6 @@ const Vocab = {
     this._index = newValue;
     this.contentAtIndex = this.indexChanged();
   },
-
   get index() {
     return this._index;
   },
@@ -13,7 +17,6 @@ const Vocab = {
     this._vocabularyName = newValue;
     this.vocabularyChanged();
   },
-
   get vocabularyName() {
     return this._vocabularyName;
   },
@@ -35,6 +38,8 @@ const Vocab = {
     this.longName = this.vocabularyData[this.vocabularyName].meta.longName;
     this.externalURL =
       this.vocabularyData[this.vocabularyName].meta.externalURL;
+    this.initialAskForField =
+      this.vocabularyData[this.vocabularyName].meta.initialAskForField;
     this.description =
       this.vocabularyData[this.vocabularyName].meta.field.description;
     this.type = this.vocabularyData[this.vocabularyName].meta.field.type;
@@ -73,7 +78,6 @@ const UI = {
     this.informVocabOfIndexUpdate();
     this.writeContent();
   },
-
   get index() {
     return this._index;
   },
@@ -83,20 +87,18 @@ const UI = {
     this.fieldElements = this.createOrUpdateFieldContentElements();
     this.fieldVisibility = this.fieldVisibilityUpdateInitial();
     this.writeFieldVisibility();
+    this.dropdownCheckboxesHideVisibility();
+    this.dropdownCheckboxesHideAskFor();
   },
-
   get selectedVocabulary() {
     return this._selectedVocabulary;
   },
-
-  displayVocab: function () {},
-
   increaseIndex: function () {
-    if (this.index < Vocab.content.length) {
+    console.log(this.index);
+    console.log(Vocab.content.length);
+    if (this.index < Vocab.content.length - 1) {
       this.index++;
     }
-
-    console.log("index increased");
   },
   decreaseIndex: function () {
     if (this.index > 0) {
@@ -104,14 +106,31 @@ const UI = {
     }
     console.log("index decreased");
   },
-
   initialize: function () {
+    // First all the HTML Elements
     this.fieldDiv = this.initCreateFieldDiv();
+    this.initCreateDropdownCheckboxesVisibility();
+    this.initCreateDropdownCheckboxesAskFor();
+
     this.selectedVocabulary = "JAAnime";
     this.index = 0;
 
+    // This HTML element depends on Vocab read first
     this.vocabSelect = this.initCreateVocabSelector();
     this.initButtons();
+    this.addEventListeners();
+    this.setFieldNumberToTestOn("2");
+    this.adjustUserScore("initial");
+  },
+  backGroundFillElement(id, color, time) {
+    console.log("test");
+    const elementToAdjust = document.getElementById(id);
+    const oldColor = elementToAdjust.style.backgroundColor;
+    const newColor = color;
+    elementToAdjust.style.backgroundColor = newColor;
+    setTimeout(function () {
+      elementToAdjust.style.backgroundColor = oldColor;
+    }, 2000);
   },
   writeFieldVisibility: function () {
     for (let i = 0; i < this.fieldCount; i++) {
@@ -130,7 +149,6 @@ const UI = {
       this.fieldElements[i].innerHTML = Vocab.contentAtIndex[i];
     }
   },
-
   initButtons: function () {
     document.getElementById("increaseBtn").onclick =
       this.increaseIndex.bind(this);
@@ -138,10 +156,16 @@ const UI = {
       this.decreaseIndex.bind(this);
   },
   createOrUpdateFieldContentElements: function () {
+    console.log(this.hasOwnProperty("fieldElements"));
+
     if (this.hasOwnProperty("fieldElements")) {
-      for (let i; i < this.fieldElements.length; i++) {
-        element[i].remove();
+      console.log("Field elements already exist, delete them!");
+
+      for (let i = 0; i < this.fieldElements.length; i++) {
+        this.fieldElements[i].remove();
       }
+
+      console.log("elements have been removed. check!");
     }
 
     let fieldElements = [];
@@ -231,6 +255,260 @@ const UI = {
     }
 
     return fieldVisibility;
+  },
+  setFieldNumberToTestOn: function (field) {
+    this.fieldNumberToTestOn = field;
+  },
+  userEvaluateInput: function (userEntryElement) {
+    const userInputValue = userEntryElement.value;
+    const correctValue = Vocab.contentAtIndex[this.fieldNumberToTestOn];
+    console.log(userInputValue);
+
+    if (userInputValue == correctValue) {
+      this.backGroundFillElement("userScoreContainer", "green", 1000);
+      this.adjustUserScore("increase");
+      this.nextCard();
+      this.enterCounter = 0;
+      userEntryElement.value = "";
+      console.log("correct");
+    } else {
+      this.backGroundFillElement("userScoreContainer", "red", 2000);
+      this.adjustUserScore("decrease");
+      console.log("false");
+    }
+  },
+  userReveal: function (userEntryElement) {
+    const correctValue = Vocab.contentAtIndex[this.fieldNumberToTestOn];
+    userEntryElement.value = correctValue;
+    this.backGroundFillElement("userScoreContainer", "red", 2000);
+    this.adjustUserScore("decrease");
+  },
+  userGiveUp: function (userEntryElement) {
+    const correctValue = Vocab.contentAtIndex[this.fieldNumberToTestOn];
+    userEntryElement.value = correctValue;
+    this.backGroundFillElement("userScoreContainer", "red", 2000);
+    this.adjustUserScore("decrease");
+    this.nextCard();
+    this.enterCounter = 0;
+    userEntryElement.value = "";
+  },
+  adjustUserScore: function (action) {
+    if (action == "increase") {
+      this.userScore++;
+    } else if (action == "decrease") {
+      if (this.userScore > 0) {
+        this.userScore--;
+      }
+    } else if (action == "initial") {
+      this.userScore = 0;
+    }
+    this.writeUserScore(this.userScore);
+  },
+  writeUserScore: function (score) {
+    const element = document.getElementById("userScoreContent");
+    element.innerHTML = score;
+  },
+  nextCard: function () {
+    this.increaseIndex();
+  },
+  initCreateDropdownCheckboxesVisibility: function () {
+    const dropdownContent = document.getElementById("dropdownContent");
+    this.visibilityCheckboxes = [];
+    this.visibilityLabels = [];
+
+    for (var i = 0; i < this.fieldCount; i++) {
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = "checkboxField" + i;
+      // checkbox.className = ".checkbox-label";
+      checkbox.addEventListener(
+        "click",
+        this.visibilityCheckboxClickHandler.bind(this, i)
+      );
+
+      var label = document.createElement("label");
+      label.id = "visibilityLabel" + i;
+      label.className = ".checkbox-label";
+      label.htmlFor = "visbilityCheckboxField" + i;
+      label.appendChild(document.createTextNode("Option" + i));
+
+      dropdownContent.appendChild(checkbox);
+      this.visibilityCheckboxes.push(checkbox);
+      dropdownContent.appendChild(label);
+      this.visibilityLabels.push(label);
+    }
+
+    this.dropdownCheckboxesHideVisibility();
+  },
+  initCreateDropdownCheckboxesAskFor: function () {
+    const dropdownContent = document.getElementById("dropdownContent");
+    this.askForCheckboxes = [];
+    this.askForLabels = [];
+
+    for (var i = 0; i < this.fieldCount; i++) {
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = "AskForCheckboxField" + i;
+      // checkbox.className = ".checkbox-label";
+      checkbox.addEventListener(
+        "click",
+        this.askForCheckboxClickHandler.bind(this, i)
+      );
+
+      var label = document.createElement("label");
+      label.id = "label" + i;
+      label.className = ".checkbox-label";
+      label.htmlFor = "askForCheckboxField" + i;
+      label.appendChild(document.createTextNode("Option" + i));
+
+      dropdownContent.appendChild(checkbox);
+      this.askForCheckboxes.push(checkbox);
+      dropdownContent.appendChild(label);
+      this.askForLabels.push(label);
+    }
+    this.dropdownAskForCheckboxesHide();
+  },
+  showOrHideFieldOptionsVisibility: function (clickCount) {
+    if (clickCount == 1) {
+      this.dropdownVisibilityCheckboxesShow();
+    } else if ((clickCount = 2)) {
+      this.dropdownCheckboxesHideVisibility();
+    }
+  },
+  showOrHideFieldOptionsAskFor: function (clickCount) {
+    if (clickCount == 1) {
+      this.dropdownAskForCheckboxesShow();
+    } else if ((clickCount = 2)) {
+      this.dropdownAskForCheckboxesHide();
+    }
+  },
+  dropdownCheckboxesHideVisibility: function () {
+    for (var i = 0; i < this.fieldCount; i++) {
+      this.visibilityCheckboxes[i].style.display = "none";
+      this.visibilityLabels[i].style.display = "none";
+      console.log("hello");
+    }
+
+    this.clickCount = 0;
+  },
+  dropdownAskForCheckboxesHide: function () {
+    for (var i = 0; i < this.fieldCount; i++) {
+      this.askForCheckboxes[i].style.display = "none";
+      this.askForLabels[i].style.display = "none";
+      console.log("hello");
+    }
+
+    this.clickCount = 0;
+  },
+  dropdownVisibilityCheckboxesShow: function () {
+    for (var i = 0; i < this.fieldCount; i++) {
+      this.visibilityCheckboxes[i].style.display = "inline-block";
+      this.visibilityLabels[i].style.display = "inline-block";
+      if (this.fieldVisibility[i] == "block") {
+        this.visibilityCheckboxes[i].checked = true;
+      } else {
+        this.visibilityCheckboxes[i].checked = false;
+      }
+      this.visibilityLabels[i].innerHTML = Object.values(Vocab.description)[i];
+    }
+  },
+  dropdownAskForCheckboxesShow: function () {
+    for (var i = 0; i < this.fieldCount; i++) {
+      this.askForCheckboxes[i].style.display = "inline-block";
+      this.askForLabels[i].style.display = "inline-block";
+      if (this.fieldVisibility[i] == "block") {
+        this.askForCheckboxes[i].checked = true;
+      } else {
+        this.askForCheckboxes[i].checked = false;
+      }
+      this.askForLabels[i].innerHTML = Object.values(Vocab.description)[i];
+    }
+  },
+  visibilityCheckboxClickHandler: function (i) {
+    const label = this.visibilityLabels[i];
+    const isChecked = this.visibilityCheckboxes[i].checked;
+
+    if (isChecked) {
+      console.log("Checkbox " + i + " was checked.");
+      this.fieldVisibility[i] = "block";
+      console.log("Checkbox " + i + " is now unchecked.");
+    } else {
+      console.log("Checkbox " + i + " was unchecked.");
+      this.fieldVisibility[i] = "none";
+      console.log("Checkbox " + i + " is now checked.");
+    }
+    this.writeFieldVisibility();
+  },
+  askForCheckboxClickHandler: function (i) {
+    const label = this.askForLabels[i];
+    const isChecked = this.askForCheckboxes[i].checked;
+
+    if (isChecked) {
+      console.log("Checkbox " + i + " was checked.");
+      this.fieldVisibility[i] = "block";
+      console.log("Checkbox " + i + " is now unchecked.");
+    } else {
+      console.log("Checkbox " + i + " was unchecked.");
+      this.fieldVisibility[i] = "none";
+      console.log("Checkbox " + i + " is now checked.");
+    }
+    this.writeFieldVisibility();
+  },
+
+  addEventListeners: function () {
+    //userEntry
+    const userEntryElement = document.getElementById("userEntry");
+    this.enterCounter = 0;
+
+    userEntryElement.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        this.enterCounter++;
+
+        if (this.enterCounter == 1) {
+          this.userEvaluateInput(userEntryElement);
+        } else if (this.enterCounter == 2) {
+          this.userReveal(userEntryElement);
+        } else if (this.enterCounter == 3) {
+          this.userGiveUp(userEntryElement);
+        }
+      }
+    });
+
+    const revealBtn = document.getElementById("revealBtn");
+    revealBtn.addEventListener("click", () => {
+      this.userReveal(userEntryElement);
+    });
+
+    const showFieldsBtn = document.getElementById("showFieldsBtn");
+
+    this.showFieldsBtnClickCount = 0;
+    showFieldsBtn.addEventListener("click", () => {
+      this.showFieldsBtnClickCount++;
+
+      if (this.showFieldsBtnClickCount == 1) {
+        this.showOrHideFieldOptionsVisibility(1);
+      } else if (this.showFieldsBtnClickCount == 2) {
+        this.showOrHideFieldOptionsVisibility(2);
+
+        this.showFieldsBtnClickCount = 0;
+      }
+    });
+
+    const askForBtn = document.getElementById("askForBtn");
+
+    console.log(askForBtn);
+    this.askForBtnClickCount = 0;
+    askForBtn.addEventListener("click", () => {
+      this.askForBtnClickCount++;
+
+      if (this.askForBtnClickCount == 1) {
+        this.showOrHideFieldOptionsAskFor(1);
+      } else if (this.askForBtnClickCount == 2) {
+        this.showOrHideFieldOptionsAskFor(2);
+
+        this.askForBtnClickCount = 0;
+      }
+    });
   },
 };
 
