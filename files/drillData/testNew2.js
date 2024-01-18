@@ -3,7 +3,7 @@ const data = {
     meta: {
       longName: "Japanese Anime",
       externalURL: "test",
-      initialAskForField:"field0",
+      fieldToAskFor:"field1",
       field: {
         description: {
           field0: "number",
@@ -74,7 +74,7 @@ const data = {
     meta: {
       longName: "Japanese Simple Nouns",
       externalURL: "test",
-      initialAskForField:"field0",
+      fieldToAskFor:"field0",
       field: {
         description: {
           field0: "number",
@@ -133,7 +133,7 @@ const data = {
   }
 };
 
-export default data;
 
+export default data;
 //node
 // module.exports.data = data;
