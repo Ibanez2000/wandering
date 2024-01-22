@@ -298,7 +298,7 @@ a:active {
  border-bottom: 2px solid gray;
 }
 
-
+/* /OLD Version 2// */
 .flexboxContainer {
   width: 100%;
   margin: auto;
@@ -330,3 +330,60 @@ a:active {
 .flexboxRowContainer button {
   width: 120px;
 }
+
+/* /OLD Version 2// */
+
+/* /Version 3// */
+.flexboxWrapper {
+  width: 100%;
+  margin: auto;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d4d7dc;
+}
+
+.flexboxRowWrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: #d4d7dc;
+  align-items: center;
+  justify-content: center;
+  flex-wrap:wrap
+}
+
+.flexboxColumnWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexboxColumnWrapper .flexboxFieldPar{
+  text-align: center;
+
+}
+
+.flexboxRowWrapper .flexboxButton {
+  width: 75px;
+}
+
+
+.flexboxRowWrapper .flexboxCheckboxAskFor {
+  text-align: center;
+
+}
+
+.flexboxRowWrapper .flexboxCheckboxVisibility {
+  text-align: center;
+  
+}
+
+.flexboxRowWrapper .flexboxLabelAskFor {
+  text-align: center;
+  
+}
+.flexboxRowWrapper .flexboxLabelVisibility {
+  text-align: center;
+  
+}
+
