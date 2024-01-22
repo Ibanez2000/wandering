@@ -360,11 +360,20 @@ a:active {
 
 .flexboxColumnWrapper .flexboxFieldPar{
   text-align: center;
+  font-size: large;
 
 }
 
 .flexboxRowWrapper .flexboxButton {
   width: 75px;
+}
+
+.flexboxRowWrapper .userScore {
+  font-size: large;
+}
+
+.flexboxRowWrapper .userInput {
+  font-size: large;
 }
 
 

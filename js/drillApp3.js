@@ -212,9 +212,9 @@ const element = (() => {
     createSingleHTMLElementNew("dropdownVisiblity","div0dropdownVisiblity", "div0app", "div", "flexboxRowWrapper");
     createSingleHTMLElementNew("dropdownDeck","div0dropdownDeck", "div0app", "div", "flexboxRowWrapper");
 
-    createSingleHTMLElementNew("userScore","p0userScore", "div0userScore", "p", "undefined","n/a");
+    createSingleHTMLElementNew("userScore","p0userScore", "div0userScore", "p", "userScore","n/a");
 
-    createSingleHTMLElementNew("userInput","input0userInput", "div0userInput", "input", "undefined","","Type answer");
+    createSingleHTMLElementNew("userInput","input0userInput", "div0userInput", "input", "userInput","","Type answer");
 
     createSingleHTMLElementNew("control","div1btn0control", "div0control", "div", "", "");
     createSingleHTMLElementNew("control","div2btn1control", "div0control", "div", "", "");
