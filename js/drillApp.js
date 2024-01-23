@@ -171,7 +171,7 @@ const element = (() => {
   ) => {
     const image = document.createElement("img");
     image.id = newID;
-    image.src = url+"/image/"+i+".mp3";
+    image.src = url + "/image/" + i + ".mp3";
     image.className = cssClass;
     const targetElement = document.querySelector("#" + parentID);
     targetElement.appendChild(image);
@@ -191,7 +191,8 @@ const element = (() => {
     audio.id = newID;
     audio.className = cssClass;
     const source = document.createElement("source");
-    source.src = url+"/mp3/"+i+".mp3";
+    source.src = url + "/mp3/" + i + ".mp3";
+    console.log("url: " + url + "/mp3/" + i + ".mp3");
     source.type = "audio/mpeg";
     audio.appendChild(source);
 
@@ -206,7 +207,6 @@ const element = (() => {
     parentID,
     elementType,
     cssClass,
-
     HTMLtext,
     inputPlaceholder,
     inputType
@@ -262,7 +262,7 @@ const element = (() => {
 
     createSingleHTMLElementNew("control","btn0previous", "div1btn0control", "button","flexboxButtonInactive", "Previous");
     createSingleHTMLElementNew("control","btn1next", "div2btn1control", "button", "flexboxButtonInactive", "Next");
-    createSingleHTMLElementNew("control","btn2play", "div3btn2control", "button", "flexboxButtonInactive", "Play");
+    createSingleHTMLElementNew("control","btn2play", "div3btn2control", "button", "flexboxButtonInactive", "Audio");
 
     createSingleHTMLElementNew("setting","div0btn0setting", "div0setting", "div", "", "");
     createSingleHTMLElementNew("setting","div1btn1setting", "div0setting", "div", "", "");
@@ -302,46 +302,23 @@ const element = (() => {
     const fieldTypes = deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.field.type;
     const fieldTypesValues = Object.values(fieldTypes);
     const fieldCount = control.api.deck.fieldCount;
-    const externalURL = deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.field.externalURL;
-
-    console.log(fieldTypes)
+    const externalURL = deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.externalURL;
 
     for (let i=0; i<fieldCount; i++){
 
-if (fieldTypesValues[i] === "text"){
-  createSingleHTMLElementNew("field","p"+i+"field", "div0field", "p", "flexboxFieldPar", "field");
-}
-else if (fieldTypesValues[i] === "audio"){
-  createHTMLAudioElement ("field","audio"+i+"field", "div0field", "tbd", externalURL,i);
-}
-else if (fieldTypesValues[i] === "image"){
-  createHTMLImageElement ("field","image"+i+"field", "div0field", "tbd", externalURL,i);
-}
-
-
-
+          if (fieldTypesValues[i] === "text"){
+            createSingleHTMLElementNew("field","p"+i+"field", "div0field", "p", "flexboxFieldPar", "field");
+          }
+          else if (fieldTypesValues[i] === "audio"){
+            createHTMLAudioElement ("field","audio"+i+"field", "div0field", "flexboxAudio", externalURL,i);
+          }
+          else if (fieldTypesValues[i] === "image"){
+            createHTMLImageElement ("field","image"+i+"field", "div0field", "flexboxImage", externalURL,i);
+          }
 
     }
 
-    
 
-
-
-    // // p fields
-    //     const createFieldPar = (targetID,targetFunctionalElement,HTMLtext) => {
-    //       const fieldCount = control.api.deck.fieldCount;
-    //       const targetElement = document.getElementById(targetID);
-
-    //       for (let i=0; i<fieldCount; i++){
-    //       createSingleHTMLElementNew(targetFunctionalElement,"p"+i+"field", targetID, "p", "flexboxFieldPar", HTMLtext+i);
-
-    //       }
-
-    //     }
-
-    //   createFieldPar("div0field","field","field");
-
-   
       // Checkbox and Label elements of dropdowns (visibility) (askFor) (here labels and checkboxes are only created)
       const createCheckboxLabelElements = (targetID,targetFunctionalElement,dropboxType,CssClassAppendix) => {
 
@@ -403,22 +380,40 @@ else if (fieldTypesValues[i] === "image"){
   };
   const fieldUpdate = () => {
     // field update is depending on the control deck state
+    const fieldTypes =
+      deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.field.type;
+    const fieldTypesValues = Object.values(fieldTypes);
+
     const fieldContentAtIndex =
       deckDatabase.api.deckDatabase[control.api.deck.itsName].content[
         control.api.session.index
       ];
     const fieldContentAtIndexValue = Object.values(fieldContentAtIndex);
+    const externalURL =
+      deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.externalURL;
 
     const fieldCount = control.api.deck.fieldCount;
 
-    //for now this can only add paragraph elements, but consider also Audio and Picture elements
     for (let i = 0; i < fieldCount; i++) {
-      functionalElement.field["p" + i + "field"].innerHTML =
-        fieldContentAtIndexValue[i];
-    }
+      if (fieldTypesValues[i] === "text") {
+        functionalElement.field["p" + i + "field"].innerHTML =
+          fieldContentAtIndexValue[i];
+      } else if (fieldTypesValues[i] === "audio") {
+        const targetElement = functionalElement.field["audio" + i + "field"];
+        targetElement.children[0].src =
+          externalURL + "mp3/" + control.api.session.index + ".mp3";
+        targetElement.load();
+      } else if (fieldTypesValues[i] === "image") {
+        const targetElement = functionalElement.field["audio" + i + "field"];
 
-    //according to visibility hide or show fields
-    implementFieldVisibility();
+        // functionalElement.field["image" + i + "field"].source.src =
+        // externalURL+"/mp3/"+control.api.session.index+".jpg";
+        // targetElement.load();
+      }
+
+      //according to visibility hide or show fields
+      implementFieldVisibility();
+    }
   };
   const userEntryPlaceholderUpdate = () => {
     const askField = control.api.deck.askForField;
@@ -431,13 +426,14 @@ else if (fieldTypesValues[i] === "image"){
     const fieldVisibility = Object.values(control.api.deck.visibilityField);
     const fieldCount = control.api.deck.fieldCount;
 
+    const targetElement = document.getElementById("div0field");
+    let targetElementChildren = targetElement.children;
+
     for (let i = 0; i < fieldCount; i++) {
       if (fieldVisibility[i] === "shown") {
-        const element = document.querySelector("#p" + i + "field");
-        element.style.display = "block";
+        targetElementChildren[i].style.display = "block";
       } else if (fieldVisibility[i] === "hidden") {
-        const element = document.querySelector("#p" + i + "field");
-        element.style.display = "none";
+        targetElementChildren[i].style.display = "block";
       }
     }
   };
@@ -445,6 +441,21 @@ else if (fieldTypesValues[i] === "image"){
     const userScore = control.api.session.userScore;
     const targetElement = document.getElementById("p0userScore");
     targetElement.innerHTML = "Score " + userScore;
+  };
+
+  const playCurrentAudio = () => {
+    const targetElement = document.querySelector(".flexboxAudio");
+    targetElement.play();
+  };
+
+  const playPreviousAudio = () => {
+    const externalURL =
+      deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.externalURL;
+    const i = control.api.session.index;
+    const path = externalURL + "/mp3/" + i + ".mp3";
+    console.log(path);
+    const audio = new Audio(path);
+    audio.play();
   };
   const returnCorrectAnswer = () => {
     const askForField = control.api.deck.askForField;
@@ -507,7 +518,6 @@ else if (fieldTypesValues[i] === "image"){
   const toggleDropdownButtonBackgroundFill = (buttonID) => {
     console.log(buttonID);
     const targetElement = document.querySelector("#" + buttonID);
-    console.log(targetElement);
 
     if (targetElement.className == "flexboxButtonInactive") {
       targetElement.className = "flexboxButtonActive";
@@ -535,6 +545,8 @@ else if (fieldTypesValues[i] === "image"){
       initialize: initialize,
       userEntryPlaceholderUpdate: userEntryPlaceholderUpdate,
       toggleDropdownButtonBackgroundFill: toggleDropdownButtonBackgroundFill,
+      playCurrentAudio: playCurrentAudio,
+      playPreviousAudio: playPreviousAudio,
     },
   };
 })();
@@ -587,8 +599,10 @@ const interaction = (() => {
       console.log(control.api.session.index);
       element.api.fieldUpdate();
     },
-    playAudio: () => {
-      console.log("play audio");
+    toggleAudioAutoPlay: () => {
+      element.api.toggleDropdownButtonBackgroundFill("btn2play");
+      control.api.settings.autoPlayAudio = !control.api.settings.autoPlayAudio;
+      console.log(control.api.settings.autoPlayAudio);
     },
     showVisibilityDropdown: () => {
       element.api.toggleDropdownVisibility("div0dropdownVisiblity");
@@ -678,25 +692,28 @@ const interaction = (() => {
       console.log("user pressed enter");
 
       if (
-        // If no input provided and first enter
         (userAnswer === "") &
         (userState.enterCount === 0) &
         (userState.answerLock === false)
       ) {
+        console.log("user answer is empty on first enter");
+
         userState.enterCount++;
         console.log(userState.enterCount);
       } else if (
-        // if no input provided and second enter
         (userAnswer === "") &
         (userState.enterCount === 1) &
         (userState.answerLock === false)
       ) {
-        console.log("user answer is empty and second enter");
+        console.log("user answer is empty on second enter");
+        if (control.api.settings.autoPlayAudio === true) {
+          element.api.playCurrentAudio();
+        }
         element.api.userInputFieldShowAnswer();
         element.api.changeFillColor("input0userInput", "red", 4);
         control.api.decreaseUserScore();
         element.api.updateUserScore();
-        element.api.changeFillColor("p0userScore", "red", 1);
+        element.api.changeFillColor("p0userScore", "red", 4);
         action.lockAnswer(5);
         element.api.userInputFieldClear(5);
         userState.enterCount = 0;
@@ -706,6 +723,10 @@ const interaction = (() => {
         (userState.answerLock === false)
       ) {
         console.log("user answer is correct");
+        console.log(control.api.settings.autoPlayAudio);
+        if (control.api.settings.autoPlayAudio === true) {
+          element.api.playPreviousAudio();
+        }
         element.api.changeFillColor("input0userInput", "green", 1);
         control.api.increaseUserScore();
         element.api.updateUserScore();
@@ -718,6 +739,7 @@ const interaction = (() => {
         (userState.enterCount === 0) &
         (userState.answerLock === false)
       ) {
+        console.log("user answer is not correct");
         element.api.changeFillColor("input0userInput", "red", 1);
         control.api.decreaseUserScore();
         element.api.updateUserScore();
@@ -759,10 +781,8 @@ const interaction = (() => {
 
     btn0previous: [action.previousCard],
     btn1next: [action.nextCard],
+    btn2play: [action.toggleAudioAutoPlay],
     userConfirmedUserInput: [action.userConfirmedUserInput],
-
-    btn2play: [action.playAudio],
-
     btn0askFor: [action.showAskForDropdown],
     btn1Visiblity: [action.showVisibilityDropdown],
     btn2Deck: [action.showDeckDropdown],

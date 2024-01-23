@@ -368,6 +368,14 @@ a:active {
   width: 75px;
 }
 
+.flexboxRowWrapper .flexboxAudio {
+  width: 200px;
+}
+
+.flexboxRowWrapper .flexboxImage {
+  width: 200px;
+}
+
 .flexboxRowWrapper .flexboxButtonActive {
   width: 75px;
   background-color: #44d4ac;
