@@ -364,8 +364,13 @@ a:active {
 
 }
 
-.flexboxRowWrapper .flexboxButton {
+.flexboxRowWrapper .flexboxButtonInactive {
   width: 75px;
+}
+
+.flexboxRowWrapper .flexboxButtonActive {
+  width: 75px;
+  background-color: #44d4ac;
 }
 
 .flexboxRowWrapper .userScore {

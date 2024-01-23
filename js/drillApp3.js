@@ -1,6 +1,7 @@
 import data from "../files/drillData/testNew2.js";
 // const data = require("../files/drillData/testNew2.js").data;
 
+
 const deckDatabase = (() => {
   const deckDatabase = data;
 
@@ -220,17 +221,17 @@ const element = (() => {
     createSingleHTMLElementNew("control","div2btn1control", "div0control", "div", "", "");
     createSingleHTMLElementNew("control","div3btn2control", "div0control", "div", "", "");
 
-    createSingleHTMLElementNew("control","btn0previous", "div1btn0control", "button","flexboxButton", "Previous");
-    createSingleHTMLElementNew("control","btn1next", "div2btn1control", "button", "flexboxButton", "Next");
-    createSingleHTMLElementNew("control","btn2play", "div3btn2control", "button", "flexboxButton", "Play");
+    createSingleHTMLElementNew("control","btn0previous", "div1btn0control", "button","flexboxButtonInactive", "Previous");
+    createSingleHTMLElementNew("control","btn1next", "div2btn1control", "button", "flexboxButtonInactive", "Next");
+    createSingleHTMLElementNew("control","btn2play", "div3btn2control", "button", "flexboxButtonInactive", "Play");
 
     createSingleHTMLElementNew("setting","div0btn0setting", "div0setting", "div", "", "");
     createSingleHTMLElementNew("setting","div1btn1setting", "div0setting", "div", "", "");
     createSingleHTMLElementNew("setting","div2btn2setting", "div0setting", "div", "", "");
 
-    createSingleHTMLElementNew("setting","btn0askFor", "div0btn0setting", "button", "flexboxButton", "Ask for");
-    createSingleHTMLElementNew("setting","btn1Visiblity", "div1btn1setting", "button", "flexboxButton", "Show/Hide");
-    createSingleHTMLElementNew("setting","btn2Deck", "div2btn2setting", "button", "flexboxButton", "Deck");
+    createSingleHTMLElementNew("setting","btn0askFor", "div0btn0setting", "button", "flexboxButtonInactive", "Ask for");
+    createSingleHTMLElementNew("setting","btn1Visiblity", "div1btn1setting", "button", "flexboxButtonInactive", "Show/Hide");
+    createSingleHTMLElementNew("setting","btn2Deck", "div2btn2setting", "button", "flexboxButtonInactive", "Deck");
 
     createSingleHTMLElementNew("dropdownDeck","select0Deck", "div0dropdownDeck", "select", "");
 
@@ -374,7 +375,7 @@ const element = (() => {
   const updateUserScore = () => {
     const userScore = control.api.session.userScore;
     const targetElement = document.getElementById("p0userScore");
-    targetElement.innerHTML = "Score:" + userScore;
+    targetElement.innerHTML = "Score " + userScore;
   };
   const returnCorrectAnswer = () => {
     const askForField = control.api.deck.askForField;
@@ -425,6 +426,7 @@ const element = (() => {
     for (let id of dropdownIDs) {
       if (id === dropdownID) {
         toggleElementVisibilityByID(id);
+
       } else {
         let element = document.getElementById(id);
         if (element.style.display !== "none") {
@@ -433,6 +435,18 @@ const element = (() => {
       }
     }
   }
+
+  const toggleDropdownButtonBackgroundFill = (buttonID) => {
+    console.log(buttonID)
+    const targetElement = document.querySelector("#" + buttonID);
+console.log(targetElement)
+
+    if (targetElement.className == "flexboxButtonInactive") {
+      targetElement.className = "flexboxButtonActive";
+    } else {
+      targetElement.className = "flexboxButtonInactive";
+    }
+  };
 
   return {
     //element API
@@ -452,6 +466,7 @@ const element = (() => {
       userInputFieldGetAnswer: userInputFieldGetAnswer,
       initialize: initialize,
       userEntryPlaceholderUpdate: userEntryPlaceholderUpdate,
+      toggleDropdownButtonBackgroundFill:toggleDropdownButtonBackgroundFill,
     },
   };
 })();
@@ -509,6 +524,7 @@ const interaction = (() => {
     },
     showVisibilityDropdown: () => {
       element.api.toggleDropdownVisibility("div0dropdownVisiblity");
+
       // set the checkoxes to the current visibility
       const currentVisibilityField = Object.values(
         control.api.deck.visibilityField
@@ -531,6 +547,7 @@ const interaction = (() => {
     showAskForDropdown: () => {
       element.api.toggleDropdownVisibility("div0dropdownAskFor");
 
+
       const currentAskForField = control.api.returnFieldForFieldDescription(
         control.api.deck.askForField
       ); // description
@@ -538,8 +555,6 @@ const interaction = (() => {
       const currentAskForFieldIndex = currentAskForField.charAt(5);
       const checkboxes = document.querySelectorAll(".flexboxCheckboxAskFor");
       const labels = document.querySelectorAll(".flexboxLabelAskFor");
-
-      console.log(control.api.deck.fieldCount);
 
       for (let i = 0; i < control.api.deck.fieldCount; i++) {
         if (i == currentAskForFieldIndex) {
