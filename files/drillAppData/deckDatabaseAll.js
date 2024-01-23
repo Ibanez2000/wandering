@@ -2,7 +2,7 @@ const data = {
   JAAnime: {
     meta: {
       longName: "Japanese Anime",
-      externalURL: "https://raw.githubusercontent.com/Ibanez2000/wandering/main/files/japanese/",
+      externalURL: "https://raw.githubusercontent.com/Ibanez2000/wandering/main/files/drillAppData/JAAnime/",
       fieldToAskFor:"field1",
       field: {
         description: {
@@ -153,7 +153,7 @@ const data = {
   JASimpleNouns: {
     meta: {
       longName: "Japanese Simple Nouns",
-      externalURL: "test",
+      externalURL: "https://raw.githubusercontent.com/Ibanez2000/wandering/main/files/drillAppData/JASimpleNouns/",
       fieldToAskFor:"field5",
       field: {
         description: {
