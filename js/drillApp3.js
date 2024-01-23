@@ -1,7 +1,6 @@
 import data from "../files/drillData/testNew2.js";
 // const data = require("../files/drillData/testNew2.js").data;
 
-
 const deckDatabase = (() => {
   const deckDatabase = data;
 
@@ -162,6 +161,45 @@ const element = (() => {
     userEntryPlaceholderUpdate();
   };
 
+  const createHTMLImageElement = (
+    targetFunctionalElement,
+    newID,
+    parentID,
+    cssClass,
+    url,
+    i
+  ) => {
+    const image = document.createElement("img");
+    image.id = newID;
+    image.src = url+"/image/"+i+".mp3";
+    image.className = cssClass;
+    const targetElement = document.querySelector("#" + parentID);
+    targetElement.appendChild(image);
+    functionalElement[targetFunctionalElement][newID] = image;
+  };
+
+  const createHTMLAudioElement = (
+    targetFunctionalElement,
+    newID,
+    parentID,
+    cssClass,
+    url,
+    i
+  ) => {
+    const audio = document.createElement("audio");
+    audio.controls = true;
+    audio.id = newID;
+    audio.className = cssClass;
+    const source = document.createElement("source");
+    source.src = url+"/mp3/"+i+".mp3";
+    source.type = "audio/mpeg";
+    audio.appendChild(source);
+
+    const targetElement = document.querySelector("#" + parentID);
+    targetElement.appendChild(audio);
+    functionalElement[targetFunctionalElement][newID] = audio;
+  };
+
   const createSingleHTMLElementNew = (
     targetFunctionalElement,
     newID,
@@ -257,20 +295,50 @@ const element = (() => {
 
     createSelectOption("select0Deck","dropdownDeck","field");
 
+    // Create content fields for text, audio and images
 
-    // p fields
-        const createFieldPar = (targetID,targetFunctionalElement,HTMLtext) => {
-          const fieldCount = control.api.deck.fieldCount;
-          const targetElement = document.getElementById(targetID);
+    //first find out what kind of content field to create
+    const fieldTypes = deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.field.type;
+    const fieldTypesValues = Object.values(fieldTypes);
+    const fieldCount = control.api.deck.fieldCount;
+    const externalURL = deckDatabase.api.deckDatabase[control.api.deck.itsName].meta.field.externalURL;
 
-          for (let i=0; i<fieldCount; i++){
-          createSingleHTMLElementNew(targetFunctionalElement,"p"+i+"field", targetID, "p", "flexboxFieldPar", HTMLtext+i);
+    console.log(fieldTypes)
 
-          }
+    for (let i=0; i<fieldCount; i++){
 
-        }
+if (fieldTypesValues[i] === "text"){
+  createSingleHTMLElementNew("field","p"+i+"field", "div0field", "p", "flexboxFieldPar", "field");
+}
+else if (fieldTypesValues[i] === "audio"){
+  createHTMLAudioElement ("field","audio"+i+"field", "div0field", "tbd", externalURL,i);
+}
+else if (fieldTypesValues[i] === "image"){
+  createHTMLImageElement ("field","image"+i+"field", "div0field", "tbd", externalURL,i);
+}
 
-      createFieldPar("div0field","field","field");
+
+
+
+    }
+
+    
+
+
+
+    // // p fields
+    //     const createFieldPar = (targetID,targetFunctionalElement,HTMLtext) => {
+    //       const fieldCount = control.api.deck.fieldCount;
+    //       const targetElement = document.getElementById(targetID);
+
+    //       for (let i=0; i<fieldCount; i++){
+    //       createSingleHTMLElementNew(targetFunctionalElement,"p"+i+"field", targetID, "p", "flexboxFieldPar", HTMLtext+i);
+
+    //       }
+
+    //     }
+
+    //   createFieldPar("div0field","field","field");
 
    
       // Checkbox and Label elements of dropdowns (visibility) (askFor) (here labels and checkboxes are only created)
@@ -426,7 +494,6 @@ const element = (() => {
     for (let id of dropdownIDs) {
       if (id === dropdownID) {
         toggleElementVisibilityByID(id);
-
       } else {
         let element = document.getElementById(id);
         if (element.style.display !== "none") {
@@ -437,9 +504,9 @@ const element = (() => {
   }
 
   const toggleDropdownButtonBackgroundFill = (buttonID) => {
-    console.log(buttonID)
+    console.log(buttonID);
     const targetElement = document.querySelector("#" + buttonID);
-console.log(targetElement)
+    console.log(targetElement);
 
     if (targetElement.className == "flexboxButtonInactive") {
       targetElement.className = "flexboxButtonActive";
@@ -466,7 +533,7 @@ console.log(targetElement)
       userInputFieldGetAnswer: userInputFieldGetAnswer,
       initialize: initialize,
       userEntryPlaceholderUpdate: userEntryPlaceholderUpdate,
-      toggleDropdownButtonBackgroundFill:toggleDropdownButtonBackgroundFill,
+      toggleDropdownButtonBackgroundFill: toggleDropdownButtonBackgroundFill,
     },
   };
 })();
@@ -546,7 +613,6 @@ const interaction = (() => {
     },
     showAskForDropdown: () => {
       element.api.toggleDropdownVisibility("div0dropdownAskFor");
-
 
       const currentAskForField = control.api.returnFieldForFieldDescription(
         control.api.deck.askForField

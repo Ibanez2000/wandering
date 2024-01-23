@@ -2,7 +2,7 @@ const data = {
   JAAnime: {
     meta: {
       longName: "Japanese Anime",
-      externalURL: "test",
+      externalURL: "https://raw.githubusercontent.com/Ibanez2000/wandering/main/files/japanese/",
       fieldToAskFor:"field1",
       field: {
         description: {
@@ -16,8 +16,8 @@ const data = {
           field0: "text",
           field1: "text",
           field2: "text",
-          field3: "text",
-          field4: "text",
+          field3: "image",
+          field4: "audio",
         },
         initialVisibility: {
           field0: "hidden",
