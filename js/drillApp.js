@@ -1,4 +1,4 @@
-import data from "../files/drillApp/deckDatabaseAll.js";
+import data from "../files/drillAppData/deckDatabaseAll.js";
 // const data = require("../files/drillData/testNew2.js").data;
 
 const deckDatabase = (() => {
