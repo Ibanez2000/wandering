@@ -27,7 +27,7 @@ const data = {
           field2: "hidden",
           field3: "hidden",
           field4: "hidden",
-          field5: "shown",
+          field5: "hidden",
         },
       },
     },
@@ -37,119 +37,56 @@ const data = {
         "Hiragana": "いってきます",
         "Kanji": "行ってきます",
         "English": "I'm leaving!",
-        "Romaji": "ittekimasu"
+        "Romaji": "ittekimasu",
+        "Audio":""
       },
       {
         "Number": 1,
         "Hiragana": "いくぞ!",
         "Kanji": "-",
         "English": "Let's go!",
-        "Romaji": "ikuzo"
+        "Romaji": "ikuzo",
+        "Audio":""
       },
       {
         "Number": 2,
         "Hiragana": "あらあら",
         "Kanji": "-",
         "English": "Oh my",
-        "Romaji": "araara"
+        "Romaji": "araara",
+        "Audio":""
       },
       {
         "Number": 3,
         "Hiragana": "ごちそうさま",
         "Kanji": "ご馳走様",
         "English": "thank you (for the meal)",
-        "Romaji": "gochisousama"
+        "Romaji": "gochisousama",
+        "Audio":""
       },
       {
         "Number": 4,
         "Hiragana": "あくま",
         "Kanji": "悪魔",
         "English": "demon",
-        "Romaji": "akuma"
+        "Romaji": "akuma",
+        "Audio":""
       },
       {
         "Number": 5,
         "Hiragana": "ほんと?",
         "Kanji": "-",
         "English": "Really?",
-        "Romaji": "honto"
+        "Romaji": "honto",
+        "Audio":""
       },
       {
         "Number": 6,
         "Hiragana": "ただいま",
         "Kanji": "只今",
         "English": "I'm home!",
-        "Romaji": "tadaima"
-      },
-      {
-        "Number": 7,
-        "Hiragana": "へんたい",
-        "Kanji": "変態",
-        "English": "Pervert!",
-        "Romaji": "hentai"
-      },
-      {
-        "Number": 8,
-        "Hiragana": "ちょっとまって",
-        "Kanji": "ちょっと待って",
-        "English": "wait a minute",
-        "Romaji": "chotto matte"
-      },
-      {
-        "Number": 9,
-        "Hiragana": "ごめんなさい",
-        "Kanji": "-",
-        "English": "I am sorry.",
-        "Romaji": "gomen nasai"
-      },
-      {
-        "Number": 10,
-        "Hiragana": "ばか",
-        "Kanji": "-",
-        "English": "idiot",
-        "Romaji": "baka"
-      },
-      {
-        "Number": 11,
-        "Hiragana": "ばけもの",
-        "Kanji": "化け物",
-        "English": "monster",
-        "Romaji": "bakemono (Also: next level!)"
-      },
-      {
-        "Number": 12,
-        "Hiragana": "だいじょうぶ",
-        "Kanji": "大丈夫",
-        "English": "I'm fine",
-        "Romaji": "daijoubu"
-      },
-      {
-        "Number": 13,
-        "Hiragana": "いただきます",
-        "Kanji": "-",
-        "English": "thank you (for the meal just served)",
-        "Romaji": "itadakimasu"
-      },
-      {
-        "Number": 14,
-        "Hiragana": "あばよ",
-        "Kanji": "-",
-        "English": "bye! (only anime)",
-        "Romaji": "abayo"
-      },
-      {
-        "Number": 15,
-        "Hiragana": "いたい",
-        "Kanji": "痛い",
-        "English": "it hurts",
-        "Romaji": "itai"
-      },
-      {
-        "Number": 16,
-        "Hiragana": "がんばれ",
-        "Kanji": "-",
-        "English": "do your best!",
-        "Romaji": "ganbare"
+        "Romaji": "tadaima",
+        "Audio":""
       },
     ],
   },
@@ -558,7 +495,7 @@ const data = {
       }
     ],
   },
-  CNSimplePhrases: {
+  CNSimpleWords: {
     meta: {
       longName: "Chinese Simple Words",
       externalURL: "https://github.com/Ibanez2000/wandering/raw/main/files/drillAppData/CNSimpleWords/",
@@ -595,10 +532,60 @@ const data = {
       },
       {
         Chinese: "命令",
-        Meaning: "Hello",
+        Meaning: "Order, Command",
         Tones: "44",
         Audio: ""
       },
+    ],
+  },
+  CNPhrases: {
+    meta: {
+      longName: "Chinese Phrases",
+      externalURL: "https://github.com/Ibanez2000/wandering/raw/main/files/drillAppData/CNPhrases/",
+      fieldToAskFor:"field0",
+      field: {
+        description: {
+          field0: "Chinese",
+          field1: "Meaning",
+          field2: "Notes",
+          field3: "Audio"
+        },
+        type: {
+          field0: "text",
+          field1: "text",
+          field2: "text",
+          field3: "audio"
+
+        },
+        initialVisibility: {
+          field0: "shown",
+          field1: "shown",
+          field2: "hidden",
+          field3: "shown",
+
+        },
+      },
+    },
+    content: [
+      {
+        Chinese: "到時會再傳給您看金額多少。",
+        Meaning: "",
+        Notes: "",
+        Audio: ""
+      },
+      {
+        Chinese: "很謝謝您的貼心。",
+        Meaning: "",
+        Notes: "",
+        Audio: ""
+      },
+      ,
+      {
+        Chinese: "收到房租單後再繳款即可。",
+        Meaning: "",
+        Notes: "",
+        Audio: ""
+      }
     ],
   },
   GEWords: {
@@ -637,7 +624,7 @@ const data = {
         Audio: ""
       },
       {
-        German: "Hausschue",
+        German: "Hausschuhe",
         Meaning: "拖鞋",
         Notes: "",
         Audio: ""
